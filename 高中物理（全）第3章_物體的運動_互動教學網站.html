@@ -1,0 +1,3367 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="dashboard">
+  <meta name="design-style" content="briefing">
+  <title>高一物理（全）第 3 章：物體的運動 — 互動教學與物理實驗室</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/katex.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.18.2/dist/contrib/auto-render.min.js" defer></script>
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      /* Semantic */
+      --positive: #2b6e52;
+      --positive-bg: #e7f3ec;
+      --warning: #b56c00;
+      --warning-bg: #fdf2dc;
+      --error-bg: #fbeae8;
+      --tag-bg: #f5e6c4;
+      --secondary-soft: #e6eff2;
+      --focus: #1f4e5f;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+      --canvas-bg: #fcfbf8;
+      --orbit-space: #131b24;
+      --orbit-grid: #293645;
+      --orbit-text: #e6e2d6;
+
+      /* Fonts */
+      --font-headline: 'Noto Serif TC', 'Source Serif 4', serif;
+      --font-body: 'Noto Sans TC', 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans TC', monospace;
+
+      /* Type scale (dashboard/explorer) */
+      --display-size: clamp(1.75rem, 1.35rem + 1.4vw, 2.375rem);
+      --headline-size: clamp(1.25rem, 1.1rem + 0.55vw, 1.55rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.2rem);
+      --body-size: clamp(0.95rem, 0.92rem + 0.15vw, 1.025rem);
+      --label-size: 0.78rem;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.015em;
+      --label-tracking: 0.04em;
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .app-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .app-shell * { min-width: 0; }
+
+    /* Dossier Header */
+    .dossier-header {
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-lg);
+    }
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: var(--label-tracking);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      white-space: nowrap;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .header-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+      gap: var(--space-lg);
+      align-items: end;
+    }
+    .page-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--display-size);
+      line-height: 1.15;
+      letter-spacing: var(--heading-tracking);
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .standfirst {
+      font-weight: 600;
+      color: var(--secondary);
+      margin: var(--space-xs) 0 0 0;
+      font-size: var(--subhead-size);
+      max-width: 65ch;
+    }
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .kpi-box {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm) var(--space-md);
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: block;
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.35rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    /* Chapter Navigation */
+    .chapter-nav {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+      background: var(--surface-container);
+      padding: var(--space-sm);
+      border-radius: var(--rounded-lg);
+      border: var(--card-border);
+    }
+    .nav-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      min-height: 54px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-align: left;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-tab:hover {
+      background: var(--surface-container-high);
+    }
+    .nav-tab.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .nav-tab-index {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .nav-tab.active .nav-tab-index {
+      color: var(--primary-container);
+    }
+    .nav-tab-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.3;
+    }
+
+    /* Sub-anchor jump pills inside each section */
+    .subnav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .subnav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .jump-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .jump-btn:hover { background: var(--surface-container); }
+
+    /* Section Containers */
+    .chapter-panel {
+      display: none;
+      gap: var(--space-xl);
+    }
+    .chapter-panel.active {
+      display: grid;
+      animation: panelFade var(--dur-short) var(--ease-out);
+    }
+    @keyframes panelFade {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .module-block {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-xs);
+    }
+    .section-head-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--surface-container);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 700;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .section-tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      background: var(--tag-bg);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      font-weight: 600;
+    }
+
+    /* Cards & Grids */
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .figure-card h3 {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      color: var(--on-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .card-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+    .aside-box strong { color: var(--secondary); }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    th {
+      background: var(--surface-container);
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+    }
+    td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* Formula & Derivation Steps */
+    .formula-box {
+      background: var(--surface-container);
+      border-left: 4px solid var(--secondary);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .formula-display {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      overflow-x: auto;
+      padding: var(--space-xs) 0;
+    }
+    .step-list {
+      margin: 0;
+      padding-left: 1.25rem;
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .example-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .example-solution {
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 3px solid var(--primary-container);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Simulator Layout */
+    .sim-shell {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .sim-controls {
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-radius: var(--rounded-lg);
+      border-top: var(--section-rule);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .control-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .mono-val {
+      font-family: var(--font-label);
+      color: var(--secondary);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--secondary);
+      cursor: pointer;
+      min-height: 28px;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .btn-primary, .btn-secondary {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), opacity var(--dur-micro);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+    }
+    .btn-secondary:hover { background: var(--surface-container-high); }
+    .btn-secondary.active-preset {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+    }
+    .sim-stage {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .canvas-box {
+      width: 100%;
+      min-height: 360px;
+      background: var(--canvas-bg);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      position: relative;
+      overflow: hidden;
+    }
+    .canvas-box canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .readout-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--space-xs);
+    }
+    .readout-tile {
+      background: var(--surface-container);
+      padding: var(--space-sm);
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline-variant);
+    }
+    .readout-tile .r-label {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+      display: block;
+    }
+    .readout-tile .r-val {
+      font-family: var(--font-label);
+      font-size: 1rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    /* Interactive Quiz System */
+    .quiz-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background: var(--surface-container);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--rounded-lg);
+      border: var(--card-border);
+    }
+    .quiz-list {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .quiz-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .quiz-q-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .quiz-badge {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px var(--space-sm);
+      border-radius: var(--badge-radius);
+      background: var(--secondary-soft);
+      color: var(--secondary);
+    }
+    .quiz-badge.multi {
+      background: var(--tag-bg);
+      color: var(--tertiary);
+    }
+    .quiz-stem {
+      font-weight: 600;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+    .options-grid {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .opt-btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      color: var(--on-surface);
+      font-size: 0.95rem;
+      transition: background-color var(--dur-micro), border-color var(--dur-micro);
+    }
+    .opt-btn:hover { background: var(--surface-container); }
+    .opt-btn.selected {
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+      font-weight: 600;
+    }
+    .opt-btn.correct {
+      background: var(--positive-bg);
+      border-color: var(--positive);
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .opt-btn.incorrect {
+      background: var(--error-bg);
+      border-color: var(--error);
+    }
+    .opt-letter {
+      font-family: var(--font-label);
+      font-weight: 700;
+      min-width: 1.5rem;
+      color: var(--secondary);
+    }
+    .quiz-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-top: var(--space-xs);
+    }
+    .feedback-banner {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.92rem;
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .feedback-banner.is-correct {
+      background: var(--positive-bg);
+      border-left: 4px solid var(--positive);
+    }
+    .feedback-banner.is-wrong {
+      background: var(--error-bg);
+      border-left: 4px solid var(--error);
+    }
+
+    /* Interactive Mind Map */
+    .mindmap-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(280px, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .mindmap-canvas {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      min-height: 480px;
+      overflow-x: auto;
+    }
+    .mindmap-svg {
+      width: 100%;
+      min-width: 640px;
+      height: auto;
+      display: block;
+    }
+    .mm-node {
+      cursor: pointer;
+    }
+    .mm-node rect {
+      transition: fill var(--dur-micro), stroke var(--dur-micro);
+    }
+    .mm-node:hover rect {
+      stroke-width: 2.5;
+    }
+    .mm-node.active rect {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 2.5;
+    }
+    .mm-node.active text {
+      fill: var(--on-primary-container);
+      font-weight: 700;
+    }
+    .mindmap-inspector {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      min-height: 360px;
+      align-content: start;
+    }
+
+    .footer-note {
+      border-top: var(--section-rule);
+      padding-top: var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .header-main { grid-template-columns: 1fr; }
+      .chapter-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sim-shell { grid-template-columns: 1fr; }
+      .mindmap-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .app-shell { padding: var(--space-sm); gap: var(--space-md); }
+      .chapter-nav { grid-template-columns: 1fr; }
+      .kpi-strip { grid-template-columns: 1fr; }
+      .figure-card, .example-card, .quiz-card, .sim-shell { padding: var(--space-md); }
+      .canvas-box { min-height: 300px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Dossier Masthead -->
+    <header class="dossier-header">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">PHYSICS 10 · CH.03</span>
+          <span class="dossier-meta">高一物理（全）第 3 章互動講義與實驗室</span>
+        </div>
+        <div class="dossier-bar-left">
+          <button type="button" class="btn-secondary" id="reset-progress-btn" onclick="handleResetProgress(this)" style="min-height:36px; padding: 0.25rem 0.75rem; font-size:0.8rem;">重設學習紀錄</button>
+        </div>
+      </div>
+
+      <div class="header-main">
+        <div>
+          <h1 class="page-title">物體的運動：從運動描述、牛頓定律到天體運行</h1>
+          <p class="standfirst">整合運動學函數圖形、力學受力分析與克卜勒行星軌道模擬，搭配 40 題分節與全章實戰詳解</p>
+        </div>
+        <div class="kpi-strip">
+          <div class="kpi-box">
+            <span class="kpi-label">已作答題數</span>
+            <span class="kpi-value" id="kpi-answered">0 / 40</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">答對題數</span>
+            <span class="kpi-value" id="kpi-correct">0</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-label">總正確率</span>
+            <span class="kpi-value" id="kpi-rate">—</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Primary Chapter Navigation -->
+    <nav class="chapter-nav" aria-label="章節切換導覽">
+      <button type="button" class="nav-tab active" data-tab="sec-3-1" onclick="switchChapter('sec-3-1')">
+        <span class="nav-tab-index"><span>3-1</span><span id="prog-3-1">0/10</span></span>
+        <span class="nav-tab-title">對物體運動的描述</span>
+      </button>
+      <button type="button" class="nav-tab" data-tab="sec-3-2" onclick="switchChapter('sec-3-2')">
+        <span class="nav-tab-index"><span>3-2</span><span id="prog-3-2">0/10</span></span>
+        <span class="nav-tab-title">牛頓運動定律與常見力</span>
+      </button>
+      <button type="button" class="nav-tab" data-tab="sec-3-3" onclick="switchChapter('sec-3-3')">
+        <span class="nav-tab-index"><span>3-3</span><span id="prog-3-3">0/10</span></span>
+        <span class="nav-tab-title">天體運動與科學方法</span>
+      </button>
+      <button type="button" class="nav-tab" data-tab="sec-summary" onclick="switchChapter('sec-summary')">
+        <span class="nav-tab-index"><span>ALL</span><span id="prog-summary">0/10</span></span>
+        <span class="nav-tab-title">全章統整心智圖與評量</span>
+      </button>
+    </nav>
+
+    <!-- ==================== SECTION 3-1 ==================== -->
+    <section id="sec-3-1" class="chapter-panel active" aria-label="3-1 對物體運動的描述">
+      <div class="subnav-bar">
+        <div class="subnav-links">
+          <button type="button" class="jump-btn" onclick="jumpTo('s31-concepts')">01 核心觀念</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s31-formulas')">02 公式推導與範例</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s31-sim')">03 運動圖形模擬器</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s31-quiz')">04 3-1 互動練習 (10題)</button>
+        </div>
+        <span class="dossier-meta">配合課本 P.64–P.73 · 1.5 節</span>
+      </div>
+
+      <!-- 3-1 Concepts -->
+      <div class="module-block" id="s31-concepts">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">01</span>
+            <h2 class="section-title">核心概念：從自然哲學思辨到運動學定量描述</h2>
+          </div>
+          <span class="section-tag">亞里斯多德 vs 伽利略 · 運動學名詞</span>
+        </div>
+
+        <div class="card-grid-2">
+          <article class="figure-card">
+            <h3><span>亞里斯多德的運動理論</span><span class="card-kicker">自然 vs 強制</span></h3>
+            <p>亞里斯多德依物體本性將運動分為兩類，認為「力是維持物體持續運動的原因」：</p>
+            <ul class="step-list">
+              <li><strong>自然運動：</strong>由四元素（土、水、氣、火）本性決定。土與水「重性」大故向下落，愈重落得愈快；火與氣較輕故向上升；天體本性永恆，作等速圓周運動。</li>
+              <li><strong>強制運動：</strong>違反本性的運動（如斜拋砲彈）。必須持續施以「外力」才能維持運動；一旦外力消失，物體便恢復自然運動或靜止。</li>
+            </ul>
+          </article>
+
+          <article class="figure-card">
+            <h3><span>伽利略的實驗與慣性推論</span><span class="card-kicker">科學實證革命</span></h3>
+            <p>伽利略透過自由落體思考與雙斜面實驗，推翻維持兩千年的亞氏學說：</p>
+            <ul class="step-list">
+              <li><strong>落體等快：</strong>空氣阻力才是輕物落得慢的主因；在無阻力下，無論輕重皆具有相同的重力加速度，且下落速度與時間成正比（$v \propto t$），而非與距離成正比。</li>
+              <li><strong>斜面思想實驗：</strong>鋼球沿光滑斜面向下滾再滾上另一斜面時，總會試圖回到原高度；當右斜面放平為水平面且無摩擦時，球將永遠維持等速直線運動（即「慣性」概念的萌芽）。</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:16%">物理量</th>
+                <th style="width:14%">性質與單位</th>
+                <th style="width:32%">定義與數學式</th>
+                <th style="width:38%">關鍵觀念與比較</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>質點與坐標</strong></td>
+                <td>模型 / m</td>
+                <td>以帶有全部質量的「點」簡化真實物體；在參考原點上建立數線描述位置 $x$。</td>
+                <td>當物體大小或形狀對研究問題影響極小時，即可簡化為質點；直線運動以 $+$、$-$ 表示方向。</td>
+              </tr>
+              <tr>
+                <td><strong>位移 $\Delta x$</strong></td>
+                <td>向量 / m</td>
+                <td>$\Delta x = x - x_0$（末位置 $-$ 初位置）</td>
+                <td>只與起、終點有關，與路徑無關；直線單向無折返時 $|\Delta x| = \ell$，若有折返則 $|\Delta x| &lt; \ell$。</td>
+              </tr>
+              <tr>
+                <td><strong>路徑長 $\ell$</strong></td>
+                <td>純量 / m</td>
+                <td>運動軌跡的實際總長度（又稱路程）</td>
+                <td>恆為非負值，必須知道完整軌跡才能求出。任何運動過程皆滿足 $\ell \ge |\Delta x|$。</td>
+              </tr>
+              <tr>
+                <td><strong>速度 $v$</strong></td>
+                <td>向量 / m/s</td>
+                <td>平均速度 $\bar{v} = \frac{\Delta x}{\Delta t}$；瞬時速度 $v = \lim_{\Delta t \to 0}\frac{\Delta x}{\Delta t}$</td>
+                <td>方向與位移同向；$x\text{–}t$ 圖的<strong>切線斜率</strong>代表瞬時速度，割線斜率代表平均速度。</td>
+              </tr>
+              <tr>
+                <td><strong>速率</strong></td>
+                <td>純量 / m/s</td>
+                <td>平均速率 $= \frac{\ell}{\Delta t}$；瞬時速率 $= \lim_{\Delta t \to 0}\frac{\ell}{\Delta t}$</td>
+                <td>一般而言平均速度量值 $\le$ 平均速率；但當 $\Delta t \to 0$ 時，<strong>瞬時速度量值 $=$ 瞬時速率</strong>（如汽車時速表）。</td>
+              </tr>
+              <tr>
+                <td><strong>加速度 $a$</strong></td>
+                <td>向量 / $\text{m/s}^2$</td>
+                <td>平均加速度 $\bar{a} = \frac{\Delta v}{\Delta t} = \frac{v - v_0}{\Delta t}$</td>
+                <td>$v\text{–}t$ 圖的<strong>斜率</strong>為加速度，<strong>線下面積</strong>為位移；$a$ 與 $v$ 同向則加速，反向則減速。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="aside-box">
+          <strong>函數圖形判讀口訣：</strong> 在直線運動中，<strong>$x\text{–}t$ 圖斜率＝速度</strong>（水平線表靜止、斜直線表等速、拋物線表等加速）；<strong>$v\text{–}t$ 圖斜率＝加速度</strong>，<strong>$v\text{–}t$ 圖與時間軸所夾面積＝位移</strong>（時間軸上方為正位移、下方為負位移）；<strong>$a\text{–}t$ 圖面積＝速度變化量 $\Delta v$</strong>。
+        </div>
+      </div>
+
+      <!-- 3-1 Formulas & Examples -->
+      <div class="module-block" id="s31-formulas">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">02</span>
+            <h2 class="section-title">公式推導教學與典型範例</h2>
+          </div>
+          <span class="section-tag">等加速運動三大核心公式</span>
+        </div>
+
+        <div class="card-grid-2">
+          <div class="figure-card">
+            <h3><span>等加速運動公式推導（圖形面積法）</span><span class="card-kicker">Derivation</span></h3>
+            <p>設物體作等加速直線運動，初速為 $v_0$、加速度為定值 $a$，歷時 $t$ 後末速為 $v$：</p>
+            <div class="formula-box">
+              <div><strong>1. 速度與時間關係：</strong>由定義 $a = \frac{v - v_0}{t}$ 移項可得</div>
+              <div class="formula-display">$$v = v_0 + at$$</div>
+            </div>
+            <div class="formula-box">
+              <div><strong>2. 位移與時間關係：</strong>$v\text{–}t$ 圖形為上底 $v_0$、下底 $v$、高 $t$ 的梯形面積</div>
+              <div class="formula-display">$$\Delta x = \frac{(v_0 + v)}{2}t = v_0 t + \frac{1}{2}at^2$$</div>
+            </div>
+            <div class="formula-box">
+              <div><strong>3. 不含時間的關係式：</strong>將 $t = \frac{v - v_0}{a}$ 代入 $\Delta x = \frac{v_0 + v}{2}t$</div>
+              <div class="formula-display">$$v^2 = v_0^2 + 2a\Delta x$$</div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <h3><span>典型範例 1：折返運動的位移、速率與加速度</span><span class="card-kicker">講義經典例題</span></h3>
+            <p>小瑋將溜溜球以 $1.0\text{ m/s}$ 的速率鉛直向下擲出，經 $2.0\text{ s}$ 後球以相同速率、相反方向（向上）回到原出發點手中。已知最低點離手 $0.5\text{ m}$，求全程之：(1) 平均速度量值；(2) 平均速率；(3) 平均加速度量值。</p>
+            <div class="example-solution">
+              <div><strong>解題步驟（定向下為正）：</strong></div>
+              <div>(1) 球回到原點，總位移 $\Delta x = 0\text{ m}$，故平均速度 $\bar{v} = \frac{0}{2.0} = 0\text{ m/s}$。</div>
+              <div>(2) 向下 $0.5\text{ m}$ 再向上 $0.5\text{ m}$，總路徑長 $\ell = 0.5 + 0.5 = 1.0\text{ m}$，故平均速率 $= \frac{1.0}{2.0} = 0.5\text{ m/s}$。</div>
+              <div>(3) 初速 $v_0 = +1.0\text{ m/s}$，末速 $v = -1.0\text{ m/s}$，速度變化 $\Delta v = (-1.0) - (+1.0) = -2.0\text{ m/s}$。平均加速度 $\bar{a} = \frac{-2.0}{2.0} = -1.0\text{ m/s}^2$，量值為 $1.0\text{ m/s}^2$（方向向上）。</div>
+            </div>
+
+            <h3 style="margin-top: var(--space-sm);"><span>典型範例 2：$v\text{–}t$ 圖面積與未知時間計算</span><span class="card-kicker">課本習題</span></h3>
+            <p>一物體自靜止作直線運動，全程歷時 $60\text{ s}$：前 $t$ 秒等加速至 $30\text{ m/s}$，接著以 $30\text{ m/s}$ 等速行駛至第 $60\text{ s}$。若全程平均速度為 $20\text{ m/s}$，試求 $t$ 值。</p>
+            <div class="example-solution">
+              <div><strong>解：</strong>總位移 $\Delta x = \bar{v} \cdot \Delta t_{\text{總}} = 20 \times 60 = 1200\text{ m}$。</div>
+              <div>利用 $v\text{–}t$ 圖面積（三角形＋矩形）$=$ 總位移：</div>
+              <div>$\frac{1}{2}(30 \cdot t) + 30(60 - t) = 1200 \implies 15t + 1800 - 30t = 1200 \implies 15t = 600 \implies t = 40\text{ s}$。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-1 Simulator -->
+      <div class="module-block" id="s31-sim">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">03</span>
+            <h2 class="section-title">互動實驗室：一維運動與 $x\text{–}t$ / $v\text{–}t$ / $a\text{–}t$ 函數圖形同步器</h2>
+          </div>
+          <span class="section-tag">即時物理模擬 · 0–10 秒觀測</span>
+        </div>
+
+        <div class="sim-shell">
+          <div class="sim-controls">
+            <div class="control-group">
+              <span class="control-label"><span>情境預設</span></span>
+              <div class="btn-row">
+                <button type="button" class="btn-secondary active-preset" id="s31-pre-accel" onclick="setSim31Preset('accel')">等加速起步</button>
+                <button type="button" class="btn-secondary" id="s31-pre-brake" onclick="setSim31Preset('brake')">減速折返</button>
+                <button type="button" class="btn-secondary" id="s31-pre-const" onclick="setSim31Preset('const')">等速運動</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s31-x0"><span>初位置 $x_0$ (m)</span><span class="mono-val" id="s31-x0-val">0 m</span></label>
+              <input type="range" id="s31-x0" min="-20" max="20" step="1" value="0" oninput="updateSim31Params()">
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s31-v0"><span>初速度 $v_0$ (m/s)</span><span class="mono-val" id="s31-v0-val">2 m/s</span></label>
+              <input type="range" id="s31-v0" min="-15" max="15" step="1" value="2" oninput="updateSim31Params()">
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s31-a"><span>加速度 $a$ ($\text{m/s}^2$)</span><span class="mono-val" id="s31-a-val">2.0 m/s²</span></label>
+              <input type="range" id="s31-a" min="-5" max="5" step="0.5" value="2" oninput="updateSim31Params()">
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s31-t"><span>時間軸掃描 $t$ (s)</span><span class="mono-val" id="s31-t-val">0.0 s</span></label>
+              <input type="range" id="s31-t" min="0" max="10" step="0.1" value="0" oninput="scrubSim31Time(this.value)">
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn-primary" id="s31-play-btn" onclick="toggleSim31Play()">播放動畫</button>
+              <button type="button" class="btn-secondary" onclick="resetSim31Time()">歸零重播</button>
+            </div>
+            <div class="aside-box" style="padding:var(--space-sm) var(--space-md); font-size:0.85rem;">
+              <strong>觀察重點：</strong> 選擇「減速折返」並觀察當速度 $v(t)$ 通過 0 時，車輛正好到達折返點（$x\text{–}t$ 圖極值），且該瞬間加速度 $a$ 並不為 0！
+            </div>
+          </div>
+
+          <div class="sim-stage">
+            <div class="canvas-box" style="min-height: 410px;">
+              <canvas id="canvas-3-1"></canvas>
+            </div>
+            <div class="readout-grid">
+              <div class="readout-tile"><span class="r-label">時間 t</span><span class="r-val" id="r31-t">0.0 s</span></div>
+              <div class="readout-tile"><span class="r-label">瞬時位置 x</span><span class="r-val" id="r31-x">0.0 m</span></div>
+              <div class="readout-tile"><span class="r-label">總位移 Δx</span><span class="r-val" id="r31-dx">0.0 m</span></div>
+              <div class="readout-tile"><span class="r-label">累積路徑長 ℓ</span><span class="r-val" id="r31-l">0.0 m</span></div>
+              <div class="readout-tile"><span class="r-label">瞬時速度 v</span><span class="r-val" id="r31-v">2.0 m/s</span></div>
+              <div class="readout-tile"><span class="r-label">運動狀態</span><span class="r-val" id="r31-state">加速前進</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-1 Quiz -->
+      <div class="module-block" id="s31-quiz">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">04</span>
+            <h2 class="section-title">3-1 互動練習題（共 10 題）</h2>
+          </div>
+          <span class="section-tag">即時檢驗 · 完整詳解</span>
+        </div>
+        <div id="quiz-container-3-1"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3-2 ==================== -->
+    <section id="sec-3-2" class="chapter-panel" aria-label="3-2 牛頓運動定律—運動的原因">
+      <div class="subnav-bar">
+        <div class="subnav-links">
+          <button type="button" class="jump-btn" onclick="jumpTo('s32-concepts')">01 牛頓三大定律與四種力</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s32-formulas')">02 公式推導與典型範例</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s32-sim')">03 $F=ma$ 與摩擦力模擬器</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s32-quiz')">04 3-2 互動練習 (10題)</button>
+        </div>
+        <span class="dossier-meta">配合課本 P.74–P.85 · 1.5 節</span>
+      </div>
+
+      <div class="module-block" id="s32-concepts">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">01</span>
+            <h2 class="section-title">核心概念：牛頓三大運動定律與生活中常見的力</h2>
+          </div>
+          <span class="section-tag">慣性 · $F=ma$ · 作用與反作用力</span>
+        </div>
+
+        <div class="card-grid-3">
+          <article class="figure-card">
+            <h3><span>第一運動定律（慣性定律）</span><span class="card-kicker">Law I</span></h3>
+            <p>若物體不受外力或所受<strong>合力為零</strong>，則靜者恆靜，動者恆作<strong>等速直線運動</strong>。</p>
+            <ul class="step-list">
+              <li><strong>慣性決定因素：</strong>物體的慣性大小只由「質量」決定（質量愈大，慣性愈大），與物體速度無關。</li>
+              <li><strong>生活實例：</strong>公車急煞人向前傾、揮動鋼筆甩出墨水、等速車廂內鉛直上拋球落回原手、旋轉雨傘水滴沿切線飛出。</li>
+            </ul>
+          </article>
+
+          <article class="figure-card">
+            <h3><span>第二運動定律（運動定律）</span><span class="card-kicker">Law II</span></h3>
+            <p>物體受不為零的合力作用時，產生的加速度與<strong>合力成正比</strong>、與<strong>質量成反比</strong>，且加速度方向必與合力同向。</p>
+            <ul class="step-list">
+              <li><strong>數學式：</strong>$F_{\text{合}} = ma$。</li>
+              <li><strong>SI 單位定義：</strong>使 $1\text{ kg}$ 物體獲得 $1\text{ m/s}^2$ 加速度的力為 $1\text{ 牛頓 (N)}$。</li>
+              <li><strong>單位換算：</strong>$1\text{ kgw} = 9.8\text{ N}$（常簡化為 $10\text{ N}$）。</li>
+            </ul>
+          </article>
+
+          <article class="figure-card">
+            <h3><span>第三運動定律（作用反作用）</span><span class="card-kicker">Law III</span></h3>
+            <p>甲施力於乙時，乙必同時施給甲一個<strong>量值相等、方向相反、共線</strong>的反作用力，寫作 $\vec{F}_{\text{甲}\to\text{乙}} = -\vec{F}_{\text{乙}\to\text{甲}}$。</p>
+            <ul class="step-list">
+              <li><strong>關鍵辨析：</strong>兩力作用在<strong>不同物體</strong>上，因此<strong>絕對不能互相抵消</strong>！</li>
+              <li><strong>辨認技巧：</strong>「施力者」與「受力者」互換（例：地球吸人 $\leftrightarrow$ 人吸地球），與「兩力平衡」（同作用於一物）截然不同。</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:16%">常見作用力</th>
+                <th style="width:24%">公式與方向</th>
+                <th style="width:60%">重要物理性質與考點提醒</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>重力（重量 $W$）</strong></td>
+                <td>$W = mg$（方向指向地心）</td>
+                <td>質量 $m$ 不隨地點改變；重量 $W$ 隨重力加速度 $g$ 改變。地球表面 $g \approx 9.8\text{ m/s}^2$。</td>
+              </tr>
+              <tr>
+                <td><strong>彈力（虎克定律）</strong></td>
+                <td>$F = k \Delta \ell$（回復方向）</td>
+                <td>在彈性（比例）限度內，彈力與形變量 $\Delta \ell$ 成正比。兩端各拉 $400\text{ gw}$ 的彈簧，其張力為 $400\text{ gw}$（非 $800$）。</td>
+              </tr>
+              <tr>
+                <td><strong>正向力（$N$）</strong></td>
+                <td>垂直於接觸面並指向受力物</td>
+                <td>屬接觸力，用來防止物體穿透接觸面；量值不一定等於物重（如斜面上或有上下外力時）。</td>
+              </tr>
+              <tr>
+                <td><strong>摩擦力（$f_s, f_k$）</strong></td>
+                <td>平行接觸面，阻礙「相對運動趨勢或滑動」</td>
+                <td><strong>靜摩擦力 $f_s$：</strong>相對靜止時存在，大小等於平行面外力（$0 \le f_s \le f_{s,\max}$）。<br><strong>動摩擦力 $f_k$：</strong>相對滑動時存在，$f_k = \mu_k N$，與接觸面積及滑動快慢無關，通常 $f_k &lt; f_{s,\max}$。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="module-block" id="s32-formulas">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">02</span>
+            <h2 class="section-title">公式推導教學與典型範例</h2>
+          </div>
+          <span class="section-tag">受力圖分析 · 系統法與隔離法</span>
+        </div>
+
+        <div class="card-grid-2">
+          <div class="figure-card">
+            <h3><span>牛頓定律與運動學連結推導</span><span class="card-kicker">Derivation</span></h3>
+            <div class="formula-box">
+              <div><strong>1. 平均施力與動量變化：</strong>將 $a = \frac{\Delta v}{\Delta t}$ 代入 $F = ma$</div>
+              <div class="formula-display">$$F_{\text{平均}} = m \frac{v - v_0}{\Delta t}$$</div>
+            </div>
+            <div class="formula-box">
+              <div><strong>2. 連結體加速度（系統法）：</strong>兩物塊 $m_1, m_2$ 並聯受水平定力 $F$</div>
+              <div class="formula-display">$$a = \frac{F}{m_1 + m_2} \quad ; \quad \text{內力 } T = m_2 a = \frac{m_2}{m_1 + m_2}F$$</div>
+            </div>
+            <div class="formula-box">
+              <div><strong>3. 有摩擦時的加速度：</strong>當外力 $F &gt; f_{s,\max}$ 開始滑動後</div>
+              <div class="formula-display">$$a = \frac{F - f_k}{m}$$</div>
+            </div>
+          </div>
+
+          <div class="example-card">
+            <h3><span>典型範例 1：球棒擊球平均打擊力</span><span class="card-kicker">課本與講義範例</span></h3>
+            <p>投手將質量 $0.15\text{ kg}$ 的棒球以 $144\text{ km/h}$ 水平投進本壘，打擊者以 $60\text{ m/s}$ 反向擊出。若球與球棒接觸時間為 $0.02\text{ s}$，求球受到的平均打擊力量值。</p>
+            <div class="example-solution">
+              <div><strong>解：</strong>先統一單位：$144\text{ km/h} = \frac{144}{3.6} = 40\text{ m/s}$。</div>
+              <div>定擊出方向為正，則初速 $v_0 = -40\text{ m/s}$，末速 $v = +60\text{ m/s}$。</div>
+              <div>速度變化 $\Delta v = 60 - (-40) = 100\text{ m/s}$。</div>
+              <div>由 $F = m\frac{\Delta v}{\Delta t} = 0.15 \times \frac{100}{0.02} = 750\text{ N}$。</div>
+            </div>
+
+            <h3 style="margin-top: var(--space-sm);"><span>典型範例 2：靜摩擦力與動摩擦力判斷</span><span class="card-kicker">常見迷思</span></h3>
+            <p>一質量 $1\text{ kg}$ 物體靜置水平面（$g=10\text{ m/s}^2$），最大靜摩擦力 $f_{s,\max} = 2\text{ N}$，動摩擦力 $f_k = 1.5\text{ N}$。若施以水平力 $F = 3\text{ N}$，求物體加速度與所受摩擦力。</p>
+            <div class="example-solution">
+              <div><strong>解：</strong>因施力 $3\text{ N} &gt; f_{s,\max}(2\text{ N})$，物體已開始滑動，此時受<strong>動摩擦力</strong> $f_k = 1.5\text{ N}$。</div>
+              <div>合力 $F_{\text{合}} = 3 - 1.5 = 1.5\text{ N}$，加速度 $a = \frac{1.5}{1} = 1.5\text{ m/s}^2$。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-2 Simulator -->
+      <div class="module-block" id="s32-sim">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">03</span>
+            <h2 class="section-title">互動實驗室：牛頓第二定律與摩擦力受力模擬器</h2>
+          </div>
+          <span class="section-tag">即時受力圖 (FBD) · $f\text{–}F$ 曲線圖</span>
+        </div>
+
+        <div class="sim-shell">
+          <div class="sim-controls">
+            <div class="control-group">
+              <label class="control-label" for="s32-m"><span>物塊質量 $m$ (kg)</span><span class="mono-val" id="s32-m-val">2.0 kg</span></label>
+              <input type="range" id="s32-m" min="1" max="10" step="0.5" value="2" oninput="updateSim32Params()">
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s32-f"><span>水平外推力 $F$ (N)</span><span class="mono-val" id="s32-f-val">6.0 N</span></label>
+              <input type="range" id="s32-f" min="0" max="40" step="0.5" value="6" oninput="updateSim32Params()">
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s32-mus"><span>最大靜摩擦係數 $\mu_s$</span><span class="mono-val" id="s32-mus-val">0.40</span></label>
+              <input type="range" id="s32-mus" min="0.1" max="0.8" step="0.05" value="0.4" oninput="updateSim32Params()">
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s32-muk"><span>動摩擦係數 $\mu_k$</span><span class="mono-val" id="s32-muk-val">0.25</span></label>
+              <input type="range" id="s32-muk" min="0.05" max="0.7" step="0.05" value="0.25" oninput="updateSim32Params()">
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn-primary" id="s32-play-btn" onclick="toggleSim32Play()">暫停模擬</button>
+              <button type="button" class="btn-secondary" onclick="resetSim32Block()">物塊歸零靜止</button>
+            </div>
+            <div class="aside-box" style="padding:var(--space-sm) var(--space-md); font-size:0.85rem;">
+              <strong>實驗觀察：</strong> 緩慢向右推高推力 $F$，注意 $f\text{–}F$ 圖上的工作點如何沿 45° 斜線爬升（$f_s = F$），突破最大靜摩擦力 $f_{s,\max}$ 後驟降為定值動摩擦力 $f_k$，物塊開始加速！
+            </div>
+          </div>
+
+          <div class="sim-stage">
+            <div class="canvas-box" style="min-height: 410px;">
+              <canvas id="canvas-3-2"></canvas>
+            </div>
+            <div class="readout-grid">
+              <div class="readout-tile"><span class="r-label">正向力 N (=mg)</span><span class="r-val" id="r32-n">20.0 N</span></div>
+              <div class="readout-tile"><span class="r-label">最大靜摩擦 f_s,max</span><span class="r-val" id="r32-fsmax">8.0 N</span></div>
+              <div class="readout-tile"><span class="r-label">目前摩擦力 f</span><span class="r-val" id="r32-f">6.0 N</span></div>
+              <div class="readout-tile"><span class="r-label">水平合力 F_合</span><span class="r-val" id="r32-fnet">0.0 N</span></div>
+              <div class="readout-tile"><span class="r-label">加速度 a</span><span class="r-val" id="r32-a">0.00 m/s²</span></div>
+              <div class="readout-tile"><span class="r-label">摩擦與運動狀態</span><span class="r-val" id="r32-status">靜止 (靜摩擦)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-2 Quiz -->
+      <div class="module-block" id="s32-quiz">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">04</span>
+            <h2 class="section-title">3-2 互動練習題（共 10 題）</h2>
+          </div>
+          <span class="section-tag">即時檢驗 · 完整詳解</span>
+        </div>
+        <div id="quiz-container-3-2"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3-3 ==================== -->
+    <section id="sec-3-3" class="chapter-panel" aria-label="3-3 天體運動">
+      <div class="subnav-bar">
+        <div class="subnav-links">
+          <button type="button" class="jump-btn" onclick="jumpTo('s33-concepts')">01 天文學演進與克卜勒三定律</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s33-formulas')">02 軌道數學關係與範例</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s33-sim')">03 克卜勒軌道與等面積模擬</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('s33-quiz')">04 3-3 互動練習 (10題)</button>
+        </div>
+        <span class="dossier-meta">配合課本 P.86–P.90 · 1 節</span>
+      </div>
+
+      <div class="module-block" id="s33-concepts">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">01</span>
+            <h2 class="section-title">核心概念：從地心說到克卜勒行星運動三大定律</h2>
+          </div>
+          <span class="section-tag">天文觀測 · 歸納法 vs 演繹法</span>
+        </div>
+
+        <div class="card-grid-3">
+          <article class="figure-card">
+            <h3><span>第一定律：軌道定律</span><span class="card-kicker">1609</span></h3>
+            <p>太陽系的每一顆行星都沿著<strong>橢圓軌道</strong>繞太陽運行，且太陽位於該橢圓的<strong>其中一個焦點</strong>上（非正中心 $O$）。</p>
+            <div class="formula-box">
+              <div>平均軌道半徑 $R$ 定義（半長軸 $a$）：</div>
+              <div class="formula-display">$$R = \frac{r_{\min} + r_{\max}}{2} = a$$</div>
+            </div>
+          </article>
+
+          <article class="figure-card">
+            <h3><span>第二定律：面積定律</span><span class="card-kicker">1609</span></h3>
+            <p>同一顆行星與太陽的連線，在<strong>相等的時間內掃過相同的面積</strong>（面積速率 $\frac{\Delta A}{\Delta t} = \text{定值}$）。</p>
+            <ul class="step-list">
+              <li><strong>速率變化：</strong>行星並非等速率繞日！在<strong>近日點</strong>距離最近，速率最快；在<strong>遠日點</strong>距離最遠，速率最慢。</li>
+              <li><strong>適用範圍：</strong>僅適用於「同一顆行星」的不同位置；不同行星各自的面積速率不同。</li>
+            </ul>
+          </article>
+
+          <article class="figure-card">
+            <h3><span>第三定律：週期定律</span><span class="card-kicker">1619</span></h3>
+            <p>繞行<strong>同一中心天體</strong>的所有行星，其平均軌道半徑 $R$ 的三次方與公轉週期 $T$ 的平方之比值為一定值。</p>
+            <div class="formula-box">
+              <div class="formula-display">$$\frac{R_1^3}{T_1^2} = \frac{R_2^3}{T_2^2} = K$$</div>
+              <div>對太陽系行星，若 $R$ 用 AU、$T$ 用年，則 $K = 1\text{ AU}^3/\text{年}^2$。</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:18%">比較項目</th>
+                <th style="width:41%">歸納法（Inductive Reasoning）</th>
+                <th style="width:41%">演繹法（Deductive Reasoning）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>推論方向</strong></td>
+                <td>由具體、大量的觀測或實驗數據出發，不預設立場，歸納出背後隱藏的共同規律。</td>
+                <td>由已知的基本定律或公理出發，經過嚴謹的邏輯與數學推導，得出特定情境的結論。</td>
+              </tr>
+              <tr>
+                <td><strong>代表人物與貢獻</strong></td>
+                <td><strong>克卜勒：</strong>分析老師第谷長達二十餘年的精確天文觀測數據，歸納出三大行星運動定律，使哥白尼「日心說」獲得強力佐證。</td>
+                <td><strong>牛頓：</strong>從牛頓三大運動定律與萬有引力定律（平方反比重力）出發，透過數學推導證明出克卜勒三大行星運動定律。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="module-block" id="s33-formulas">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">02</span>
+            <h2 class="section-title">軌道幾何推導與典型範例</h2>
+          </div>
+          <span class="section-tag">克卜勒常數 $K$ 的適用條件</span>
+        </div>
+
+        <div class="card-grid-2">
+          <div class="figure-card">
+            <h3><span>橢圓軌道半長軸與週期比值推導</span><span class="card-kicker">Geometry</span></h3>
+            <p>設橢圓半長軸為 $a$，中心 $O$ 至焦點 $F_1$ 距離為 $c$，則：</p>
+            <ul class="step-list">
+              <li>近日距 $r_{\min} = a - c$；遠日距 $r_{\max} = a + c$。</li>
+              <li>平均軌道半徑 $R = \frac{r_{\min} + r_{\max}}{2} = \frac{(a - c) + (a + c)}{2} = a$（注意：不是 $\frac{a+b}{2}$！）。</li>
+              <li>若以地球繞太陽為基準（$R_{\text{地}} = 1\text{ AU}$，$T_{\text{地}} = 1\text{ 年}$），任一繞太陽天體皆滿足 $R^3 = T^2$（單位為 AU 與年）。</li>
+            </ul>
+          </div>
+
+          <div class="example-card">
+            <h3><span>典型範例：由近／遠日距求公轉週期</span><span class="card-kicker">講義範例</span></h3>
+            <p>某繞太陽公轉之小行星，其橢圓軌道的近日距為 $3\text{ AU}$，遠日距為 $5\text{ AU}$。試求此小行星的：(1) 平均軌道半徑 $R$；(2) 公轉週期 $T$。</p>
+            <div class="example-solution">
+              <div><strong>解：</strong></div>
+              <div>(1) 平均軌道半徑 $R = \frac{r_{\min} + r_{\max}}{2} = \frac{3 + 5}{2} = 4\text{ AU}$。</div>
+              <div>(2) 利用克卜勒第三定律，與地球（$R_{\text{地}}=1\text{ AU}, T_{\text{地}}=1\text{ 年}$）比較：</div>
+              <div>$\frac{R^3}{T^2} = \frac{1^3}{1^2} \implies \frac{4^3}{T^2} = 1 \implies T^2 = 64 \implies T = 8\text{ 年}$。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-3 Simulator -->
+      <div class="module-block" id="s33-sim">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">03</span>
+            <h2 class="section-title">互動天文儀：克卜勒橢圓軌道與等面積定律模擬器</h2>
+          </div>
+          <span class="section-tag">實時掃過面積 $\Delta A$ · 近／遠日點速率對比</span>
+        </div>
+
+        <div class="sim-shell">
+          <div class="sim-controls">
+            <div class="control-group">
+              <span class="control-label"><span>天體軌道預設</span></span>
+              <div class="btn-row">
+                <button type="button" class="btn-secondary" id="s33-pre-earth" onclick="setSim33Preset('earth')">地球 ($e=0.02$)</button>
+                <button type="button" class="btn-secondary active-preset" id="s33-pre-comet" onclick="setSim33Preset('comet')">高偏心橢圓 ($e=0.60$)</button>
+                <button type="button" class="btn-secondary" id="s33-pre-mars" onclick="setSim33Preset('mars')">火星 ($a=1.52$)</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s33-e"><span>軌道偏心率 $e$ ($0=$正圓)</span><span class="mono-val" id="s33-e-val">0.60</span></label>
+              <input type="range" id="s33-e" min="0" max="0.75" step="0.05" value="0.60" oninput="updateSim33Params()">
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="s33-a"><span>平均軌道半徑 $R = a$ (AU)</span><span class="mono-val" id="s33-a-val">2.5 AU</span></label>
+              <input type="range" id="s33-a" min="0.8" max="4.0" step="0.2" value="2.5" oninput="updateSim33Params()">
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn-primary" id="s33-sweep-btn" onclick="triggerSim33Sweep()">記錄兩段等時扇形</button>
+              <button type="button" class="btn-secondary" id="s33-play-btn" onclick="toggleSim33Play()">暫停公轉</button>
+            </div>
+            <div class="aside-box" style="padding:var(--space-sm) var(--space-md); font-size:0.85rem;">
+              <strong>觀測技巧：</strong> 點擊「記錄兩段等時扇形」會在行星接近近日點與遠日點時，各自畫出相同時間間隔 $\Delta t$ 掃過的面積（藍色與琥珀色扇形）。比較兩者形狀不同，但面積完全相等！
+            </div>
+          </div>
+
+          <div class="sim-stage">
+            <div class="canvas-box" style="min-height: 410px; background: var(--orbit-space);">
+              <canvas id="canvas-3-3"></canvas>
+            </div>
+            <div class="readout-grid">
+              <div class="readout-tile"><span class="r-label">近日距 r_min</span><span class="r-val" id="r33-rmin">1.00 AU</span></div>
+              <div class="readout-tile"><span class="r-label">遠日距 r_max</span><span class="r-val" id="r33-rmax">4.00 AU</span></div>
+              <div class="readout-tile"><span class="r-label">公轉週期 T</span><span class="r-val" id="r33-t">3.95 年</span></div>
+              <div class="readout-tile"><span class="r-label">R³ / T² 比值</span><span class="r-val" id="r33-k">1.000</span></div>
+              <div class="readout-tile"><span class="r-label">目前距太陽 r</span><span class="r-val" id="r33-r">1.00 AU</span></div>
+              <div class="readout-tile"><span class="r-label">相對軌道速率</span><span class="r-val" id="r33-v">1.26 v₀</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-3 Quiz -->
+      <div class="module-block" id="s33-quiz">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">04</span>
+            <h2 class="section-title">3-3 互動練習題（共 10 題）</h2>
+          </div>
+          <span class="section-tag">即時檢驗 · 完整詳解</span>
+        </div>
+        <div id="quiz-container-3-3"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SUMMARY & FINAL ASSESSMENT ==================== -->
+    <section id="sec-summary" class="chapter-panel" aria-label="全章統整心智圖與評量">
+      <div class="subnav-bar">
+        <div class="subnav-links">
+          <button type="button" class="jump-btn" onclick="jumpTo('sum-mindmap')">01 互動式全章心智圖</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('sum-review')">02 全章精要與迷思辨析</button>
+          <button type="button" class="jump-btn" onclick="jumpTo('sum-quiz')">03 全章綜合練習 (10題)</button>
+        </div>
+        <span class="dossier-meta">Chapter 3 Synthesis &amp; Review</span>
+      </div>
+
+      <!-- Interactive Mind Map -->
+      <div class="module-block" id="sum-mindmap">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">01</span>
+            <h2 class="section-title">第 3 章互動式概念心智圖（點擊節點探索知識脈絡）</h2>
+          </div>
+          <span class="section-tag">點擊任一節點查看重點與跳轉</span>
+        </div>
+
+        <div class="mindmap-layout">
+          <div class="mindmap-canvas">
+            <svg class="mindmap-svg" viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="第3章物體的運動概念心智圖">
+              <!-- Connection Paths -->
+              <g stroke="var(--data-context)" stroke-width="2" fill="none">
+                <path d="M 155 235 C 205 235, 205 90, 255 90" />
+                <path d="M 155 235 L 255 235" />
+                <path d="M 155 235 C 205 235, 205 385, 255 385" />
+
+                <!-- 3-1 children -->
+                <path d="M 435 90 C 470 90, 470 42, 505 42" />
+                <path d="M 435 90 L 505 90" />
+                <path d="M 435 90 C 470 90, 470 138, 505 138" />
+
+                <!-- 3-2 children -->
+                <path d="M 435 235 C 470 235, 470 192, 505 192" />
+                <path d="M 435 235 L 505 235" />
+                <path d="M 435 235 C 470 235, 470 278, 505 278" />
+
+                <!-- 3-3 children -->
+                <path d="M 435 385 C 470 385, 470 342, 505 342" />
+                <path d="M 435 385 L 505 385" />
+                <path d="M 435 385 C 470 385, 470 428, 505 428" />
+              </g>
+
+              <!-- Root Node -->
+              <g class="mm-node active" data-node="root" tabindex="0" role="button" onclick="selectMindNode('root')" onkeydown="handleMindKey(event, 'root')">
+                <rect x="18" y="205" width="138" height="60" rx="6" fill="var(--primary)" stroke="var(--primary)" stroke-width="1.5"/>
+                <text x="87" y="231" text-anchor="middle" fill="var(--on-primary)" font-size="14" font-weight="700">第 3 章</text>
+                <text x="87" y="250" text-anchor="middle" fill="var(--primary-container)" font-size="13" font-weight="700">物體的運動</text>
+              </g>
+
+              <!-- Branch 3-1 -->
+              <g class="mm-node" data-node="b31" tabindex="0" role="button" onclick="selectMindNode('b31')" onkeydown="handleMindKey(event, 'b31')">
+                <rect x="255" y="66" width="180" height="48" rx="6" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="2"/>
+                <text x="345" y="88" text-anchor="middle" fill="var(--secondary)" font-size="13" font-weight="700">3-1 運動的描述</text>
+                <text x="345" y="105" text-anchor="middle" fill="var(--on-surface-variant)" font-size="11">怎麼動？（運動學）</text>
+              </g>
+              <g class="mm-node" data-node="n31a" tabindex="0" role="button" onclick="selectMindNode('n31a')" onkeydown="handleMindKey(event, 'n31a')">
+                <rect x="505" y="24" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="47" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">亞里斯多德 vs 伽利略斜面思辨</text>
+              </g>
+              <g class="mm-node" data-node="n31b" tabindex="0" role="button" onclick="selectMindNode('n31b')" onkeydown="handleMindKey(event, 'n31b')">
+                <rect x="505" y="72" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="95" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">位移 Δx、速度 v、加速度 a</text>
+              </g>
+              <g class="mm-node" data-node="n31c" tabindex="0" role="button" onclick="selectMindNode('n31c')" onkeydown="handleMindKey(event, 'n31c')">
+                <rect x="505" y="120" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="143" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">x-t / v-t / a-t 圖形與等加速公式</text>
+              </g>
+
+              <!-- Branch 3-2 -->
+              <g class="mm-node" data-node="b32" tabindex="0" role="button" onclick="selectMindNode('b32')" onkeydown="handleMindKey(event, 'b32')">
+                <rect x="255" y="211" width="180" height="48" rx="6" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="2"/>
+                <text x="345" y="233" text-anchor="middle" fill="var(--secondary)" font-size="13" font-weight="700">3-2 牛頓運動定律</text>
+                <text x="345" y="250" text-anchor="middle" fill="var(--on-surface-variant)" font-size="11">為何而動？（動力學）</text>
+              </g>
+              <g class="mm-node" data-node="n32a" tabindex="0" role="button" onclick="selectMindNode('n32a')" onkeydown="handleMindKey(event, 'n32a')">
+                <rect x="505" y="174" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="197" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">第一定律：慣性（僅由質量決定）</text>
+              </g>
+              <g class="mm-node" data-node="n32b" tabindex="0" role="button" onclick="selectMindNode('n32b')" onkeydown="handleMindKey(event, 'n32b')">
+                <rect x="505" y="217" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="240" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">第二定律 F=ma 與第三定律</text>
+              </g>
+              <g class="mm-node" data-node="n32c" tabindex="0" role="button" onclick="selectMindNode('n32c')" onkeydown="handleMindKey(event, 'n32c')">
+                <rect x="505" y="260" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="283" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">重力、彈力、正向力、摩擦力</text>
+              </g>
+
+              <!-- Branch 3-3 -->
+              <g class="mm-node" data-node="b33" tabindex="0" role="button" onclick="selectMindNode('b33')" onkeydown="handleMindKey(event, 'b33')">
+                <rect x="255" y="361" width="180" height="48" rx="6" fill="var(--surface-container-low)" stroke="var(--secondary)" stroke-width="2"/>
+                <text x="345" y="383" text-anchor="middle" fill="var(--secondary)" font-size="13" font-weight="700">3-3 天體運動</text>
+                <text x="345" y="400" text-anchor="middle" fill="var(--on-surface-variant)" font-size="11">宇宙如何運行？</text>
+              </g>
+              <g class="mm-node" data-node="n33a" tabindex="0" role="button" onclick="selectMindNode('n33a')" onkeydown="handleMindKey(event, 'n33a')">
+                <rect x="505" y="324" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="347" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">地心說 → 日心說 → 第谷觀測</text>
+              </g>
+              <g class="mm-node" data-node="n33b" tabindex="0" role="button" onclick="selectMindNode('n33b')" onkeydown="handleMindKey(event, 'n33b')">
+                <rect x="505" y="367" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="390" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">克卜勒軌道、面積、週期定律</text>
+              </g>
+              <g class="mm-node" data-node="n33c" tabindex="0" role="button" onclick="selectMindNode('n33c')" onkeydown="handleMindKey(event, 'n33c')">
+                <rect x="505" y="410" width="235" height="36" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1.5"/>
+                <text x="622" y="433" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="600">歸納法（克卜勒）vs 演繹法（牛頓）</text>
+              </g>
+            </svg>
+          </div>
+
+          <aside class="mindmap-inspector" id="mindmap-inspector" aria-live="polite">
+            <!-- Populated dynamically -->
+          </aside>
+        </div>
+      </div>
+
+      <!-- Full Chapter Review & Misconceptions -->
+      <div class="module-block" id="sum-review">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">02</span>
+            <h2 class="section-title">全章重點精要與常見迷思辨析</h2>
+          </div>
+          <span class="section-tag">考前速覽 · 觀念除錯</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:24%">常見錯誤迷思</th>
+                <th style="width:38%">正確物理觀念</th>
+                <th style="width:38%">關鍵判據與舉例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>「物體速度為 0 的瞬間，加速度必定為 0。」</td>
+                <td><strong>錯誤！</strong>速度與加速度沒有必然同時為零的關係。</td>
+                <td>鉛直上拋到達最高點瞬間，$v = 0$，但物體仍受重力，加速度依然向下且 $a = g$。</td>
+              </tr>
+              <tr>
+                <td>「力是維持物體運動的必要原因。」</td>
+                <td><strong>錯誤！</strong>力是用來「改變」物體運動狀態（產生加速度），不是維持運動。</td>
+                <td>由牛頓第一定律，在無摩擦水平面或外太空中，不受外力仍可維持等速直線運動。</td>
+              </tr>
+              <tr>
+                <td>「作用力與反作用力大小相等、方向相反，所以可以抵消。」</td>
+                <td><strong>錯誤！</strong>兩力分別作用在不同物體上，無法合成或抵消。</td>
+                <td>馬拉車前進是因為「地給馬的向前靜摩擦力」大於「車拉馬的向後拉力」（看單一受力體的合力）。</td>
+              </tr>
+              <tr>
+                <td>「靜止物體受的是靜摩擦力，運動物體受的是動摩擦力。」</td>
+                <td><strong>錯誤！</strong>關鍵在「與接觸面間是否有相對滑動」。</td>
+                <td>人在地面行走時（車輪純滾動無打滑），腳底或輪胎與地面接觸點「相對靜止」，提供推進的是<strong>靜摩擦力</strong>！（賽車無花紋光頭胎可在乾燥跑道增大接觸摩擦）</td>
+              </tr>
+              <tr>
+                <td>「月球繞地球的 $R^3/T^2$ 與水星繞太陽相同。」</td>
+                <td><strong>錯誤！</strong>克卜勒第三定律僅適用於繞「同一中心引力天體」的衛星或行星。</td>
+                <td>月球繞地球、福爾摩沙七號繞地球兩者比值相等；火星與地球繞太陽兩者比值相等，但兩組不能直接畫等號。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Final Comprehensive Quiz -->
+      <div class="module-block" id="sum-quiz">
+        <div class="section-head">
+          <div class="section-head-left">
+            <span class="index-num">03</span>
+            <h2 class="section-title">全章綜合評量練習（共 10 題）</h2>
+          </div>
+          <span class="section-tag">跨節素養整合 · 即時批改與詳解</span>
+        </div>
+        <div id="quiz-container-summary"></div>
+      </div>
+    </section>
+
+    <footer class="footer-note">
+      <span>資料依據：高一物理（全）第 3 章「物體的運動」教學講義與備課資料彙編</span>
+      <span>互動物理模擬由 HTML5 Canvas 即時運算 · 學習進度自動保存</span>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // ==================== GLOBAL STATE & PERSISTENCE ====================
+    const DEFAULT_STATE = {
+      activeTab: 'sec-3-1',
+      answers: {},       // { qId: ['A'] }
+      checked: {},       // { qId: true }
+      selectedNode: 'root'
+    };
+    let appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+    async function loadPersistedState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState = {
+              activeTab: saved.activeTab || 'sec-3-1',
+              answers: saved.answers || {},
+              checked: saved.checked || {},
+              selectedNode: saved.selectedNode || 'root'
+            };
+          }
+        }
+      } catch (e) {
+        // Fallback cleanly if shim unavailable
+      }
+    }
+
+    async function savePersistedState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (e) {}
+    }
+
+    // ==================== QUIZ DATA (40 QUESTIONS) ====================
+    const QUIZ_BANK = {
+      '3-1': [
+        {
+          id: 'q31_1', type: 'single',
+          stem: `下列哪一項是伽利略對於物體運動的看法？`,
+          options: [
+            `A. 愈重的物體下落得愈快`,
+            `B. 天體運動之所以永恆不息是因為其本性所致`,
+            `C. 物體必須持續受到外力作用才能保持運動`,
+            `D. 物體不受外力作用依然可以保持等速運動`,
+            `E. 落體運動由高處掉向低處是屬於自然運動`
+          ],
+          ans: ['D'],
+          exp: `伽利略透過斜面思想實驗推論，若無摩擦力或外力阻礙，物體會維持原來的等速直線運動（D 正確）。A、B、C、E 皆為亞里斯多德的主張。`
+        },
+        {
+          id: 'q31_2', type: 'single',
+          stem: `關於位移與路徑長的比較，下列敘述何者正確？`,
+          options: [
+            `A. 兩者皆具有方向性，屬於向量`,
+            `B. 在同一段運動過程中，位移的量值必小於路徑長`,
+            `C. 只要知道初位置與末位置，即可唯一決定路徑長與位移`,
+            `D. 物體作單一方向直線運動且無折返時，位移量值等於路徑長`,
+            `E. 物體繞操場跑完一圈回到起點，其路徑長為零`
+          ],
+          ans: ['D'],
+          exp: `路徑長是純量，與實際軌跡有關，繞一圈回到起點時位移為 0 但路徑長等於周長（A、C、E 錯）；一般而言「路徑長 ≥ 位移量值」，僅在單向無折返直線運動時兩者相等（D 對、B 錯）。`
+        },
+        {
+          id: 'q31_3', type: 'single',
+          stem: `一質點在直線數線上運動，從起點 x₀ = -1 m 向左移動至折返點 x = -3 m，再向右移動至終點 x = +2 m。試問此過程之位移與路徑長分別為何？`,
+          options: [
+            `A. 位移 +3 m，路徑長 3 m`,
+            `B. 位移 +3 m，路徑長 7 m`,
+            `C. 位移 -3 m，路徑長 7 m`,
+            `D. 位移 +5 m，路徑長 5 m`,
+            `E. 位移 +1 m，路徑長 5 m`
+          ],
+          ans: ['B'],
+          exp: `位移 Δx = 末位置 - 初位置 = 2 - (-1) = +3 m。路徑長分兩段計算：|-3 - (-1)| + |2 - (-3)| = 2 + 5 = 7 m。`
+        },
+        {
+          id: 'q31_4', type: 'single',
+          stem: `定東為正，某人先向東跑 200 m，耗時 200 s；接著折返向西跑 300 m，耗時 300 s。此人全程的平均速度為何？`,
+          options: [
+            `A. 1.0 m/s，向東`,
+            `B. 1.4 m/s，向東`,
+            `C. 0.8 m/s，向西`,
+            `D. 0.6 m/s，向東`,
+            `E. 0.2 m/s，向西`
+          ],
+          ans: ['E'],
+          exp: `全程總位移 Δx = +200 + (-300) = -100 m（向西 100 m）；總時間 Δt = 200 + 300 = 500 s。平均速度 = -100 / 500 = -0.2 m/s，負號表示向西。`
+        },
+        {
+          id: 'q31_5', type: 'single',
+          stem: `發球機將乒乓球從離地 40 cm 處以 1.0 m/s 的速度向上射出，0.4 s 後該球以 3.0 m/s 的速度向下落回地面。乒乓球從發射至落地，平均速度及平均加速度的量值分別為 X m/s 與 Y m/s²，則 (X, Y) 為何？`,
+          options: [
+            `A. (100, 10)`,
+            `B. (1, 10)`,
+            `C. (100, 5)`,
+            `D. (10, 5)`,
+            `E. (1, 5)`
+          ],
+          ans: ['B'],
+          exp: `定向上為正：總位移 Δx = 0 - 0.40 = -0.40 m，平均速度量值 X = |-0.40| / 0.4 = 1 m/s。速度變化 Δv = (-3.0) - (+1.0) = -4.0 m/s，平均加速度量值 Y = |-4.0| / 0.4 = 10 m/s²。`
+        },
+        {
+          id: 'q31_6', type: 'single',
+          stem: `一輛公車發現前方路面上有障礙物，立即緊急煞車，在煞車後公車向前滑行減速的過程中，下列敘述何者正確？`,
+          options: [
+            `A. 速度向前，加速度向後`,
+            `B. 速度與加速度都向前`,
+            `C. 速度向後，加速度向前`,
+            `D. 速度與加速度都向後`,
+            `E. 速度與加速度有時同向、有時反向`
+          ],
+          ans: ['A'],
+          exp: `公車正在「向前」滑行，故瞬時速度方向向前；因速率逐漸減慢，加速度必須與速度反方向，故加速度向後。`
+        },
+        {
+          id: 'q31_7', type: 'single',
+          stem: `一般汽車或機車儀表板上的「時速表」，在行駛過程中所即時呈現的數字代表下列哪一個物理量？`,
+          options: [
+            `A. 平均速度`,
+            `B. 平均速率`,
+            `C. 瞬時速度`,
+            `D. 瞬時速率`,
+            `E. 瞬時加速度`
+          ],
+          ans: ['D'],
+          exp: `時速表只顯示當前那一瞬間行駛的快慢（無方向資訊），故代表「瞬時速率」，其量值等於瞬時速度的量值。`
+        },
+        {
+          id: 'q31_8', type: 'single',
+          stem: `在直線運動的 v-t 函數圖形中，若某段時間的圖形為一條「通過原點且向右上方傾斜的直線」，則此物體作何種運動？`,
+          options: [
+            `A. 靜止不動`,
+            `B. 等速度運動`,
+            `C. 初速為零的等加速運動`,
+            `D. 加速度逐漸增大的變加速運動`,
+            `E. 等減速折返運動`
+          ],
+          ans: ['C'],
+          exp: `v-t 圖的斜率代表加速度。向右上方傾斜的直線表示斜率為正且固定（加速度為正定值），又因 t = 0 時 v = 0，故為初速為零的等加速運動。`
+        },
+        {
+          id: 'q31_9', type: 'single',
+          stem: `一物體自靜止作直線運動，0～t 秒內等加速至 30 m/s，t～60 秒內維持 30 m/s 等速運動。若全程 60 秒的平均速度為 20 m/s，則圖中 t 值為多少秒？`,
+          options: [
+            `A. 5`,
+            `B. 10`,
+            `C. 20`,
+            `D. 30`,
+            `E. 40`
+          ],
+          ans: ['E'],
+          exp: `全程總位移 = 平均速度 × 時間 = 20 × 60 = 1200 m。利用 v-t 圖梯形面積 = ½ × 30 × t + 30 × (60 - t) = 1800 - 15t = 1200，解得 15t = 600，t = 40 s。`
+        },
+        {
+          id: 'q31_10', type: 'single',
+          stem: `關於自由落體的研究步驟，下列四句敘述：(1) 不同重量的物體落地時間應該相同；(2) 在無明顯空氣阻力下，大小石塊自同高處同時釋放幾乎同時落地；(3) 空氣阻力影響了羽毛與石塊的下落；(4) 地球對物體的重力加速度與質量無關。哪一項是客觀的觀察「事實」？`,
+          options: [
+            `A. 1`,
+            `B. 2`,
+            `C. 3`,
+            `D. 4`,
+            `E. 1 與 2 皆是事實`
+          ],
+          ans: ['B'],
+          exp: `四個敘述中，只有 (2) 是直接觀察到的客觀實驗事實；(1)、(3)、(4) 皆是根據事實所做的科學推論或假說。`
+        }
+      ],
+      '3-2': [
+        {
+          id: 'q32_1', type: 'single',
+          stem: `關於牛頓第一運動定律（慣性定律）的敘述，下列何者正確？`,
+          options: [
+            `A. 物體移動的速度愈快，其慣性愈大`,
+            `B. 只有靜止的物體才具有慣性，運動中的物體沒有慣性`,
+            `C. 質量愈大的物體，其保持原運動狀態的慣性愈大`,
+            `D. 物體所受合力不為零時，仍遵守慣性定律維持等速`,
+            `E. 在等速行駛的火車內鉛直向上拋一球，球會落在拋球者後方`
+          ],
+          ans: ['C'],
+          exp: `物體的慣性大小僅取決於「質量」，與速度無關（C 對、A/B 錯）；合力為零才維持靜止或等速（D 錯）；等速火車上拋球因水平方向具相同等速慣性，會落回拋球者手中（E 錯）。`
+        },
+        {
+          id: 'q32_2', type: 'single',
+          stem: `棒球賽一名投手以水平速度 162 km/h 擲出質量約為 0.15 kg 的棒球。如果投手對原靜止棒球的加速時間約為 0.15 s，則投手對棒球的平均施力約為多少 N？`,
+          options: [
+            `A. 16`,
+            `B. 20`,
+            `C. 30`,
+            `D. 45`,
+            `E. 108`
+          ],
+          ans: ['D'],
+          exp: `單位換算：162 km/h = 162 / 3.6 = 45 m/s。加速度 a = (45 - 0) / 0.15 = 300 m/s²。由 F = ma = 0.15 × 300 = 45 N。`
+        },
+        {
+          id: 'q32_3', type: 'single',
+          stem: `一物塊置於光滑水平面上，右端繫一自然長度為 10 cm 的輕彈簧。今施一水平力拉彈簧使物塊作等加速運動：當物塊加速度 a = 2 m/s² 時，彈簧總長度為 13 cm；改變拉力使加速度變為 a = 5 m/s² 時，彈簧總長度應為多少 cm？（皆在比例限度內）`,
+          options: [
+            `A. 15`,
+            `B. 17.5`,
+            `C. 18`,
+            `D. 19.5`,
+            `E. 21`
+          ],
+          ans: ['B'],
+          exp: `彈簧彈力提供加速度：F = k·Δℓ = ma，故伸長量 Δℓ 與加速度 a 成正比。列式 (13 - 10) / (L - 10) = 2 / 5，得 3 / (L - 10) = 2 / 5，L - 10 = 7.5，故總長 L = 17.5 cm。`
+        },
+        {
+          id: 'q32_4', type: 'single',
+          stem: `以相同水平定力 F 分別作用於兩個原靜置於光滑水平面上的物塊上，產生的加速度各為 2 m/s² 與 3 m/s²。若將此兩物塊連結成一體後再施以水平定力 2F，則連結體產生的加速度量值為多少 m/s²？`,
+          options: [
+            `A. 0.6`,
+            `B. 1.2`,
+            `C. 2.4`,
+            `D. 4.8`,
+            `E. 5.0`
+          ],
+          ans: ['C'],
+          exp: `由 F = m₁(2) = m₂(3)，得 m₁ = F/2、m₂ = F/3。總質量 M = F/2 + F/3 = (5/6)F。施力 2F 時，a' = 2F / M = 2 / (5/6) = 12/5 = 2.4 m/s²。`
+        },
+        {
+          id: 'q32_5', type: 'multi',
+          stem: `【多選】具有相同體積且質量分布均勻的實心鐵球與鋁球，從離地面等高處由靜止自由落下（忽略空氣阻力）。在落下的時間均為 t（尚未著地）時，下列敘述哪些正確？（應選 3 項）`,
+          options: [
+            `A. 兩球所受的重力相同`,
+            `B. 兩球下落的距離相同`,
+            `C. 兩球具有相同的速度`,
+            `D. 兩球有相同的加速度`,
+            `E. 兩球有相同的質量`
+          ],
+          ans: ['B', 'C', 'D'],
+          exp: `同體積但鐵與鋁密度不同，故質量不同（E 錯）、重力 W=mg 也不同（A 錯）。但因自由落體只受重力，加速度同為 g（D 對），故經過相同時間 t，速度 v=gt（C 對）及下落距離 h=½gt²（B 對）皆相同。`
+        },
+        {
+          id: 'q32_6', type: 'single',
+          stem: `將一個 0.5 kg 的小石頭以 10 m/s 的初速自地面鉛直向上拋出（g = 10 m/s²），下列敘述何者正確？`,
+          options: [
+            `A. 到達最高點時的加速度為 0`,
+            `B. 自拋出時起，歷時 1 s 到達最高點`,
+            `C. 上升的最大高度為 10 m`,
+            `D. 在最高點時的重量為 500 N`,
+            `E. 由最高點落回地面須時 2 s`
+          ],
+          ans: ['B'],
+          exp: `全程只受重力，加速度恆向下 10 m/s²（A 錯）；v = v₀ - gt → 0 = 10 - 10t → t = 1 s（B 對）；最大高度 h = ½×1×10 = 5 m（C 錯）；重量 W = mg = 0.5×10 = 5 N（D 錯）；落回地面亦須 1 s（E 錯）。`
+        },
+        {
+          id: 'q32_7', type: 'single',
+          stem: `一質量為 2 kg 之物體靜止於光滑平面上，受到 10 N 方向固定之水平推力，維持 5 s 後停止施力，則下列敘述何者正確？`,
+          options: [
+            `A. 停止施力後即逐漸減速，最終會靜止`,
+            `B. 停止施力後繼續運動的加速度為 5 m/s²`,
+            `C. 停止施力後可繼續作等速運動，速度量值為 25 m/s`,
+            `D. 起動後 6 s 內的移動距離是 90 m`,
+            `E. 停止施力後立即靜止`
+          ],
+          ans: ['C'],
+          exp: `前 5 s 加速度 a = F/m = 10/2 = 5 m/s²，5 s 末速度 v = 5×5 = 25 m/s，前 5 s 位移 ½×5×5² = 62.5 m。停止施力後因平面光滑（合力為 0），將以 25 m/s 作等速直線運動（C 對）；第 6 s 再跑 25 m，共 87.5 m（D 錯）。`
+        },
+        {
+          id: 'q32_8', type: 'single',
+          stem: `一木塊放在水平桌上，同時受到向右 5 N 與向左 2 N 兩水平外力作用，但木塊仍保持靜止。下列敘述何者錯誤？`,
+          options: [
+            `A. 此時木塊所受之合力為 0`,
+            `B. 此時木塊所受之靜摩擦力為 3 N 向左`,
+            `C. 若移除掉向右的力，木塊所受的靜摩擦力變為 2 N 向右`,
+            `D. 若移除掉向左的力，木塊所受的摩擦力必變為動摩擦力`,
+            `E. 兩力皆移除後，摩擦力消失為 0`
+          ],
+          ans: ['D'],
+          exp: `原受力向右 5 N、向左 2 N 仍靜止，知桌面提供 3 N 向左的靜摩擦力，且最大靜摩擦力至少 ≥ 3 N。若移除向左 2 N，剩餘向右 5 N 是否大於最大靜摩擦力並不確定，不一定會滑動變為動摩擦力（D 錯誤）。`
+        },
+        {
+          id: 'q32_9', type: 'multi',
+          stem: `【多選】一質量 1 kg 的物體靜止於水平面（g = 10 m/s²），受水平外力作用之最大靜摩擦力為 2 N，開始滑動後動摩擦力維持定值 1.5 N。下列敘述哪些正確？（應選 3 項）`,
+          options: [
+            `A. 當水平推力為 1.8 N 時，物體所受摩擦力為 2 N`,
+            `B. 接觸面對該物體的正向力量值為 10 N`,
+            `C. 物體滑動後，無論推力如何增大，動摩擦力皆保持 1.5 N 不變`,
+            `D. 當水平推力為 3 N 時，物體加速度量值為 1.5 m/s²`,
+            `E. 若推力從 3 N 增加至 5 N，物體加速度維持不變`
+          ],
+          ans: ['B', 'C', 'D'],
+          exp: `推力 1.8 N 小於最大靜摩擦力 2 N，物體靜止，靜摩擦力等於外力 1.8 N（A 錯）；正向力平衡重力 N = mg = 10 N（B 對）；動摩擦力只與正向力及材質有關，保持 1.5 N（C 對）；推力 3 N 時，a = (3 - 1.5)/1 = 1.5 m/s²（D 對），推力越大加速度越大（E 錯）。`
+        },
+        {
+          id: 'q32_10', type: 'single',
+          stem: `兩條完全相同的輕彈簧 A、B：A 彈簧一端固定於牆上，另一端以 200 gw 的力拉，伸長量為 10 cm。若 B 彈簧兩端各以 400 gw 的力同時向相反方向拉（仍在比例限度內），則 B 彈簧的伸長量為多少 cm？`,
+          options: [
+            `A. 80`,
+            `B. 40`,
+            `C. 30`,
+            `D. 20`,
+            `E. 10`
+          ],
+          ans: ['D'],
+          exp: `彈簧兩端各施力 400 gw 時，就如同牆壁提供 400 gw 的反作用力，彈簧內部張力即為 400 gw（為 A 彈簧 200 gw 的 2 倍）。由虎克定律 F = k·Δℓ，伸長量亦為 2 倍，即 20 cm。`
+        }
+      ],
+      '3-3': [
+        {
+          id: 'q33_1', type: 'single',
+          stem: `下列哪一位科學家從第谷遺留的大量天文觀測數據中歸納出行星運動三大定律，使哥白尼的「日心說」獲得強力的佐證？`,
+          options: [
+            `A. 哥白尼`,
+            `B. 克卜勒`,
+            `C. 伽利略`,
+            `D. 牛頓`,
+            `E. 托勒米`
+          ],
+          ans: ['B'],
+          exp: `克卜勒分析了其老師第谷累積二十多年的精確天文觀測數據，利用歸納法提出三大行星運動定律。`
+        },
+        {
+          id: 'q33_2', type: 'single',
+          stem: `某行星繞太陽的橢圓軌道之近日距為 3 天文單位（AU），平均軌道半徑為 5 天文單位，則其遠日距為多少天文單位？`,
+          options: [
+            `A. 4`,
+            `B. 6`,
+            `C. 7`,
+            `D. 8`,
+            `E. 10`
+          ],
+          ans: ['C'],
+          exp: `平均軌道半徑 R = (r_min + r_max) / 2 → 5 = (3 + r_max) / 2 → r_max = 10 - 3 = 7 天文單位。`
+        },
+        {
+          id: 'q33_3', type: 'single',
+          stem: `假設天文學家發現某一新行星，其在近日點時與太陽距離為 0.5 AU，遠日點時與太陽距離為 1.5 AU，則該新行星在「近日點」與「遠日點」時的面積速率（ΔA/Δt）比為何？`,
+          options: [
+            `A. 3 : 1`,
+            `B. 9 : 1`,
+            `C. 1 : 3`,
+            `D. 1 : 9`,
+            `E. 1 : 1`
+          ],
+          ans: ['E'],
+          exp: `依克卜勒第二定律（面積定律），同一顆行星與太陽的連線在相等時間內掃過相等的面積，故不論位於橢圓軌道的何處，面積速率皆相等，比值為 1 : 1。`
+        },
+        {
+          id: 'q33_4', type: 'multi',
+          stem: `【多選】如課本範例：A、B、C、D 為某行星繞一恆星逆時針公轉橢圓軌道上的四個位置（A、C 為長軸兩端，A 靠近焦點 F₁、C 靠近焦點 F₂；O 為橢圓正中心）。根據克卜勒定律，下列推論哪些正確？（應選 3 項）`,
+          options: [
+            `A. 此恆星必位於正中心 O`,
+            `B. 此恆星可能位於焦點 F₁ 或 F₂`,
+            `C. 平均軌道半徑定義為 (OA + OB) / 2`,
+            `D. 若恆星位於 F₁，則由 B 經 C 到 D（遠日側）的時間大於由 D 經 A 到 B（近日側）的時間`,
+            `E. 若恆星位於 F₂，行星通過 C 時的速率最快，通過 A 時的速率最慢`
+          ],
+          ans: ['B', 'D', 'E'],
+          exp: `恆星位於焦點 F₁ 或 F₂（B 對、A 錯）；平均軌道半徑為半長軸 OA 或 OC（C 錯）；若恆星在 F₁，D-A-B 為近日弧（面積較小且速率快），B-C-D 為遠日弧（面積大且速率慢），故遠日側耗時較長（D 對）；若恆星在 F₂，則 C 為近日點速率最快、A 為遠日點速率最慢（E 對）。`
+        },
+        {
+          id: 'q33_5', type: 'single',
+          stem: `某新發現的彗星繞太陽運行，其軌道近日距為 1 AU、遠日距為 7 AU，則此彗星繞太陽的公轉週期約為多少年？`,
+          options: [
+            `A. 4 年`,
+            `B. 8 年`,
+            `C. 12 年`,
+            `D. 16 年`,
+            `E. 64 年`
+          ],
+          ans: ['B'],
+          exp: `平均軌道半徑 R = (1 + 7) / 2 = 4 AU。利用克卜勒第三定律 R³ / T² = 1³ / 1² → 4³ / T² = 1 → T² = 64 → T = 8 年。`
+        },
+        {
+          id: 'q33_6', type: 'multi',
+          stem: `【多選】下列選項中，哪些天體的平均軌道半徑立方與公轉週期平方之比值（R³/T²），和地球之 R³/T² 比值相等？（應選 3 項）`,
+          options: [
+            `A. 福爾摩沙七號衛星`,
+            `B. 哈雷彗星`,
+            `C. 水星`,
+            `D. 天王星`,
+            `E. 月球`
+          ],
+          ans: ['B', 'C', 'D'],
+          exp: `克卜勒第三定律僅適用於「繞同一個引力中心」的所有天體。哈雷彗星、水星、天王星皆與地球一樣繞太陽公轉，故比值相等；福爾摩沙七號衛星與月球是繞地球運行，比值不同。`
+        },
+        {
+          id: 'q33_7', type: 'single',
+          stem: `一個橢圓軌道的長軸半長為 a，短軸半長為 b，中心到焦點距離為 c。下列關於克卜勒定律中「平均軌道半徑 R」的定義，何者正確？`,
+          options: [
+            `A. R = (a + b) / 2`,
+            `B. R = a`,
+            `C. R = b`,
+            `D. R = √(ab)`,
+            `E. R = a - c`
+          ],
+          ans: ['B'],
+          exp: `平均軌道半徑定義為近日距 (a - c) 與遠日距 (a + c) 的算術平均，即 [(a - c) + (a + c)] / 2 = a（半長軸）。`
+        },
+        {
+          id: 'q33_8', type: 'single',
+          stem: `關於「地球」與「火星」繞太陽運行時的面積定律比較，下列敘述何者正確？`,
+          options: [
+            `A. 地球與太陽連線在 1 秒內掃過的面積，必等於火星與太陽連線在 1 秒內掃過的面積`,
+            `B. 面積定律只適用於正圓軌道`,
+            `C. 地球在遠日點時的線速率大於在近日點時的線速率`,
+            `D. 地球公轉軌道上，近日點線速率最快、遠日點線速率最慢`,
+            `E. 兩行星因為質量不同，都不遵守面積定律`
+          ],
+          ans: ['D'],
+          exp: `面積定律僅適用於「同一顆行星」在軌道上的不同位置（A 錯）；對同一顆行星而言，近日點速率最快、遠日點速率最慢（D 對、C 錯）。`
+        },
+        {
+          id: 'q33_9', type: 'single',
+          stem: `關於克卜勒與牛頓在建立行星運動定律過程中所使用的科學研究方法，下列敘述何者正確？`,
+          options: [
+            `A. 克卜勒使用演繹法、牛頓使用歸納法`,
+            `B. 兩人皆僅靠純數學演繹法得出三大行星定律`,
+            `C. 克卜勒由第谷觀測數據歸納出定律（歸納法）；牛頓由運動定律與萬有引力推導出定律（演繹法）`,
+            `D. 克卜勒提出萬有引力定律後，才有人測量行星位置`,
+            `E. 科學探究只能使用歸納法，不可與演繹法交互使用`
+          ],
+          ans: ['C'],
+          exp: `克卜勒從大量天文觀測數據出發尋找規律，為歸納法代表；牛頓從基本力學與萬有引力定律出發推導出相同結果，為演繹法代表。`
+        },
+        {
+          id: 'q33_10', type: 'single',
+          stem: `若有一顆人造行星繞太陽公轉的平均軌道半徑為地球平均軌道半徑的 4 倍（4 AU），不計其他行星擾動，則此人造行星繞太陽公轉的週期為多少年？`,
+          options: [
+            `A. 2 年`,
+            `B. 4 年`,
+            `C. 8 年`,
+            `D. 16 年`,
+            `E. 64 年`
+          ],
+          ans: ['C'],
+          exp: `由克卜勒第三定律 T² ∝ R³，R 為地球的 4 倍，故 T = √(4³) = √64 = 8 年。`
+        }
+      ],
+      'summary': [
+        {
+          id: 'qsum_1', type: 'single',
+          stem: `賽車手在直線賽道上自靜止踩下油門以固定加速度起動，5 秒後時速表顯示為 108 km/h。試問這 5 秒內賽車的平均加速度量值為多少 m/s²？`,
+          options: [
+            `A. 3.0`,
+            `B. 6.0`,
+            `C. 10.8`,
+            `D. 21.6`,
+            `E. 30.0`
+          ],
+          ans: ['B'],
+          exp: `108 km/h = 108 / 3.6 = 30 m/s。平均加速度 a = (30 - 0) / 5 = 6.0 m/s²。`
+        },
+        {
+          id: 'qsum_2', type: 'single',
+          stem: `承上題，若該賽車質量為 800 kg，在加速的 5 秒期間賽車所受的水平淨合力約為多少牛頓？`,
+          options: [
+            `A. 800 N`,
+            `B. 2400 N`,
+            `C. 4800 N`,
+            `D. 8640 N`,
+            `E. 24000 N`
+          ],
+          ans: ['C'],
+          exp: `由牛頓第二運動定律 F = ma = 800 kg × 6.0 m/s² = 4800 N。`
+        },
+        {
+          id: 'qsum_3', type: 'single',
+          stem: `根據牛頓第三運動定律，當馬車往前加速前進時，馬拉車的力與車拉馬的力必然量值相等、方向相反。那麼為何馬車還可以向前移動？`,
+          options: [
+            `A. 因為馬拉車的力其實略大於車拉馬的力`,
+            `B. 因為兩力互相抵消後，馬的重量推著車前進`,
+            `C. 兩力作用在不同物體上無法抵消；只要馬拉車的力大於地面給車的阻力，車子便能加速前進`,
+            `D. 因為慣性定律只適用於馬，不適用於車`,
+            `E. 因為馬車不受重力作用`
+          ],
+          ans: ['C'],
+          exp: `馬拉車（施力在車上）與車拉馬（施力在馬上）是一對作用力與反作用力，作用於不同物體。分析「車子」本身所受合力：當馬拉車的力 > 地面阻礙車輪的摩擦力時，車子即可加速前進。`
+        },
+        {
+          id: 'qsum_4', type: 'single',
+          stem: `一般家用汽車輪胎表面有花紋溝槽，但 F1 賽車在乾燥晴天使用的卻是平坦光滑的「光頭胎」。這項設計背後主要的力學原理為何？`,
+          options: [
+            `A. 光頭胎可以完全消除輪胎與地面的摩擦力，讓車速無限加快`,
+            `B. 光頭胎能減少輪胎質量，直接使重力加速度變大`,
+            `C. 光頭胎無排水溝槽，可增加橡膠與乾燥柏油路面的實際接觸貼合抓地力，提供更大的靜摩擦力讓車加速與過彎`,
+            `D. 花紋溝槽會使正向力變為零`,
+            `E. 乾地摩擦係數與材質完全無關，純粹為了美觀`
+          ],
+          ans: ['C'],
+          exp: `一般汽車花紋是為了「雨天排水」防止打滑；乾燥賽道上不需要排水，光頭胎用較軟橡膠與柏油緊密貼合，能提供更大的靜摩擦抓地力供加速與轉彎向心力。`
+        },
+        {
+          id: 'qsum_5', type: 'single',
+          stem: `甲、乙、丙三輛車同時從同一地點出發，沿直線向東行駛。在時間 t₀ 內，三車的出發位置與末位置完全相同，但過程中甲先快後慢、乙維持等速、丙先慢後快。在 0～t₀ 時間內，關於三車的平均速度比較何者正確？`,
+          options: [
+            `A. 甲最大`,
+            `B. 乙最大`,
+            `C. 丙最大`,
+            `D. 三車的平均速度完全相同`,
+            `E. 無法比較`
+          ],
+          ans: ['D'],
+          exp: `平均速度定義為「位移 / 經歷時間」。因三車在相同時間 t₀ 內的初、末位置皆相同，位移相同，故三車平均速度完全相同。`
+        },
+        {
+          id: 'qsum_6', type: 'single',
+          stem: `一質量 4.0 kg 的鉛球在地球表面自由落下（g = 9.8 m/s²），已知地球質量約 6.0 × 10²⁴ kg。下列敘述何者正確？`,
+          options: [
+            `A. 鉛球吸引地球的力小於地球吸引鉛球的力`,
+            `B. 地球吸引鉛球的重力約 39.2 N，方向向下；鉛球吸引地球的力也是約 39.2 N，方向向上`,
+            `C. 因為地球質量很大，所以地球受到的吸引力為零`,
+            `D. 地球向鉛球產生的加速度與鉛球一樣是 9.8 m/s²`,
+            `E. 兩力作用於同一物體，所以鉛球合力為零`
+          ],
+          ans: ['B'],
+          exp: `地球吸鉛球與鉛球吸地球互為作用力與反作用力，量值同為 mg = 4.0 × 9.8 = 39.2 N，方向相反。地球加速度 a = 39.2 / (6.0×10²⁴) ≈ 6.5×10⁻²⁴ m/s²，極小難察覺。`
+        },
+        {
+          id: 'qsum_7', type: 'single',
+          stem: `一人手提一條輕繩，輕繩下端懸掛一靜止的小球。定義：W₁ 為地球吸引小球的力、T 為繩拉小球的力、W₂ 為地球吸引人的力、N 為地面支撐人的力、W₃ 為人吸引地球的力。下列哪一組是「作用力與反作用力」？`,
+          options: [
+            `A. W₁ 與 T`,
+            `B. W₂ 與 N`,
+            `C. W₂ 與 W₃`,
+            `D. T 與 N`,
+            `E. W₁ 與 W₂`
+          ],
+          ans: ['C'],
+          exp: `作用力與反作用力的判斷口訣是「主詞與受詞互換」：W₂ 是「地球吸人」，其反作用力必為「人吸地球」即 W₃（C 對）。W₁ 與 T 都作用在小球上，屬於兩力平衡。`
+        },
+        {
+          id: 'qsum_8', type: 'single',
+          stem: `某人站在體重計上測量體重（靜止平衡），當電梯以向上的加速度 a 啟動瞬間，體重計的讀數會如何變化？`,
+          options: [
+            `A. 變大，因為體重計對人的正向力 N = m(g + a)`,
+            `B. 變小，因為加速度向上分擔了重力`,
+            `C. 不變，因為人的質量沒有改變`,
+            `D. 歸零，因為電梯處於失重狀態`,
+            `E. 變小，因為慣性使人向上浮起`
+          ],
+          ans: ['A'],
+          exp: `人受向上正向力 N 與向下重力 mg，因合力向上產生加速度 a，故 N - mg = ma → N = m(g + a) > mg，體重計讀數（即正向力 N）變大。`
+        },
+        {
+          id: 'qsum_9', type: 'single',
+          stem: `已知天王星繞太陽平均軌道半徑約 19.2 AU、公轉週期 84.0 年；海王星平均軌道半徑約 30.1 AU。依克卜勒第三定律推算，海王星公轉週期最接近下列何者？`,
+          options: [
+            `A. 84 年`,
+            `B. 120 年`,
+            `C. 165 年`,
+            `D. 240 年`,
+            `E. 360 年`
+          ],
+          ans: ['C'],
+          exp: `利用 T = √(R³) = √(30.1³) ≈ √(27270) ≈ 165 年（亦與課本圖表數據 165 年完全一致）。`
+        },
+        {
+          id: 'qsum_10', type: 'multi',
+          stem: `【多選】綜合回顧第 3 章全章核心觀念，下列敘述哪些正確？（應選 3 項）`,
+          options: [
+            `A. 速度與加速度同向時，物體速率必然增加；反向時速率必減慢`,
+            `B. 若物體作等速圓周運動（如理想化天體圓軌道），因速率不變，故物體所受合力必為零`,
+            `C. 伽利略主張在水平面運動的球最後會停下，是因為受到摩擦力的作用`,
+            `D. 太陽位於行星橢圓軌道的焦點上，且行星在近日點公轉速率大於遠日點`,
+            `E. 一顆人造衛星繞地球的 R³/T² 比值，必定等於地球繞太陽的 R³/T² 比值`
+          ],
+          ans: ['A', 'C', 'D'],
+          exp: `等速圓周運動「方向」不斷改變，故速度有變化、存在向心加速度，合力不為零（B 錯）；人造衛星繞地球與地球繞太陽中心天體不同，比值不等（E 錯）；A、C、D 皆正確。`
+        }
+      ]
+    };
+
+    // ==================== MINDMAP DATA ====================
+    const MINDMAP_INFO = {
+      root: {
+        badge: '第 3 章總覽',
+        title: `物體的運動：物理學的基石`,
+        body: `本章依循科學史的脈絡，從<strong>如何描述運動</strong>（3-1 運動學），進展到<strong>為何產生加速度</strong>（3-2 牛頓動力學），最終將地面力學推展至<strong>浩瀚宇宙的天體運行</strong>（3-3 天體運動）。`,
+        formula: `\\Delta x \\xrightarrow{\\Delta t} v \\xrightarrow{\\Delta t} a \\xleftarrow{m} F_{\\text{合}}`,
+        actionTab: 'sec-3-1',
+        actionLabel: `前往 3-1 運動的描述`
+      },
+      b31: {
+        badge: '3-1 運動學',
+        title: `對物體運動的描述`,
+        body: `不探討受力原因，純粹用空間坐標與時間函數來精確刻畫物體的位置變化。重點在於分辨向量（位移、速度、加速度）與純量（路徑長、速率），以及 $x\\text{–}t$、$v\\text{–}t$、$a\\text{–}t$ 圖形的斜率與面積轉換。`,
+        formula: `v = v_0 + at \\quad ; \\quad \\Delta x = v_0 t + \\tfrac{1}{2}at^2`,
+        actionTab: 'sec-3-1',
+        actionLabel: `開啟 3-1 運動圖形模擬器`
+      },
+      n31a: {
+        badge: '科學史思辨',
+        title: `亞里斯多德 vs 伽利略`,
+        body: `亞氏主張「重物落得快、強制運動須持續施力」；伽利略透過雙斜面思想實驗與自由落體論證「無阻力時輕重落體一樣快、無外力時物體將維持等速運動」，開啟近代實驗科學。`,
+        formula: `\\text{自由落體：} v \\propto t \\quad (h = \\tfrac{1}{2}gt^2)`,
+        actionTab: 'sec-3-1',
+        actionLabel: `複習 3-1 核心對照`
+      },
+      n31b: {
+        badge: '基本物理量',
+        title: `位移 $\\Delta x$、速度 $v$ 與加速度 $a$`,
+        body: `位移 $\\Delta x = x - x_0$ 只看起終點；路徑長 $\\ell$ 為軌跡總長（$\\ell \\ge |\\Delta x|$）。當 $\\Delta t \\to 0$ 時，瞬時速度的量值必等於瞬時速率。速度與加速度同向則變快，反向則變慢。`,
+        formula: `\\bar{v} = \\frac{\\Delta x}{\\Delta t} \\quad ; \\quad \\bar{a} = \\frac{v - v_0}{\\Delta t}`,
+        actionTab: 'sec-3-1',
+        actionLabel: `前往 3-1 練習題`
+      },
+      n31c: {
+        badge: '圖形分析',
+        title: `x-t / v-t / a-t 函數圖形`,
+        body: `$x\\text{–}t$ 圖切線斜率 $=$ 瞬時速度；$v\\text{–}t$ 圖斜率 $=$ 加速度、線下面積 $=$ 位移；$a\\text{–}t$ 圖面積 $=$ 速度變化量 $\\Delta v$。等加速運動圖形面積即推導三大公式的基礎。`,
+        formula: `v^2 = v_0^2 + 2a\\Delta x`,
+        actionTab: 'sec-3-1',
+        actionLabel: `開啟 3-1 模擬器實測`
+      },
+      b32: {
+        badge: '3-2 動力學',
+        title: `牛頓運動定律 — 運動的原因`,
+        body: `牛頓將伽利略的慣性發揚光大，建立力、質量與加速度的定量關係（$F=ma$），並透過作用與反作用定律闡明物體間的交互作用，配合生活中四種常見力解決力學問題。`,
+        formula: `\\vec{F}_{\\text{合}} = m\\vec{a}`,
+        actionTab: 'sec-3-2',
+        actionLabel: `開啟 3-2 摩擦力模擬器`
+      },
+      n32a: {
+        badge: '第一定律',
+        title: `慣性定律`,
+        body: `不受外力或合力為零時，靜者恆靜、動者恆作等速直線運動。物體抵抗運動狀態改變的性質稱為慣性，<strong>慣性只由質量決定</strong>，與運動速度無關。`,
+        formula: `\\sum \\vec{F} = 0 \\iff \\vec{v} = \\text{定向量}`,
+        actionTab: 'sec-3-2',
+        actionLabel: `複習 3-2 慣性實例`
+      },
+      n32b: {
+        badge: '第二與第三定律',
+        title: `運動方程式與作用反作用`,
+        body: `第二定律：$F=ma$（1 N 使 1 kg 獲 1 m/s²）；第三定律：兩物相互作用力等大、反向、共線、同時產生消失，因<strong>受力體不同，絕不可抵消</strong>。`,
+        formula: `\\vec{F}_{AB} = -\\vec{F}_{BA} \\quad (m_A a_A = -m_B a_B)`,
+        actionTab: 'sec-3-2',
+        actionLabel: `前往 3-2 範例與練習`
+      },
+      n32c: {
+        badge: '常見作用力',
+        title: `重力、彈力、正向力與摩擦力`,
+        body: `重力 $W=mg$；彈力 $F=k\\Delta\\ell$；正向力垂直接觸面；靜摩擦力等於外力分力（上限 $f_{s,\\max}$），滑動後變為定值動摩擦力 $f_k$。`,
+        formula: `0 \\le f_s \\le f_{s,\\max} \\quad ; \\quad f_k = \\mu_k N`,
+        actionTab: 'sec-3-2',
+        actionLabel: `操作 3-2 摩擦力實驗台`
+      },
+      b33: {
+        badge: '3-3 天體運動',
+        title: `從觀測歸納到宇宙重力`,
+        body: `接續地心說與日心說的革命，第谷累積觀測數據、克卜勒歸納行星三大定律、牛頓結合萬有引力與三大運動定律完成演繹證明，統一了地上與天上的物理法則。`,
+        formula: `\\frac{R^3}{T^2} = K`,
+        actionTab: 'sec-3-3',
+        actionLabel: `開啟 3-3 行星軌道模擬器`
+      },
+      n33a: {
+        badge: '天文學演進',
+        title: `托勒米 → 哥白尼 → 第谷`,
+        body: `托勒米「地心說」以本輪解釋行星逆行較繁複；哥白尼「日心說」模型簡潔但尚未被廣泛接受；第谷廿年精密肉眼觀測留下最珍貴數據，交棒給克卜勒完成歷史突破。`,
+        formula: `\\text{地心說} \\longrightarrow \\text{日心說} \\longrightarrow \\text{精確數據}`,
+        actionTab: 'sec-3-3',
+        actionLabel: `前往 3-3 重點整理`
+      },
+      n33b: {
+        badge: '克卜勒三定律',
+        title: `軌道、面積、週期定律`,
+        body: `1. 橢圓軌道，太陽在一焦點，$R = \\frac{r_{\\min}+r_{\\max}}{2}$。<br>2. 等時間掃過等面積，近日點最快、遠日點最慢。<br>3. 繞同一中心天體時，$R^3 / T^2$ 為定值。`,
+        formula: `\\frac{\\Delta A}{\\Delta t} = \\text{定值} \\quad ; \\quad \\frac{R_1^3}{T_1^2} = \\frac{R_2^3}{T_2^2}`,
+        actionTab: 'sec-3-3',
+        actionLabel: `實測 3-3 等面積掃描`
+      },
+      n33c: {
+        badge: '科學方法',
+        title: `歸納法 vs 演繹法`,
+        body: `歸納法（克卜勒）：從大量觀察數據找出共通數學律。演繹法（牛頓）：從核心公理（$F=ma$ 與萬有引力）推導出定律。自然科學探究經常交互並用兩者。`,
+        formula: `\\text{觀測數據} \\xrightarrow{\\text{歸納}} \\text{經驗定律} \\xleftarrow{\\text{演繹}} \\text{基本原理}`,
+        actionTab: 'sec-3-3',
+        actionLabel: `前往 3-3 練習題`
+      }
+    };
+
+    // ==================== NAVIGATION & QUIZ ENGINE ====================
+    function switchChapter(tabId) {
+      appState.activeTab = tabId;
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabId);
+      });
+      document.querySelectorAll('.chapter-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === tabId);
+      });
+      savePersistedState();
+      // Trigger canvas resize & redraw for visible simulator
+      requestAnimationFrame(() => {
+        if (tabId === 'sec-3-1') drawSim31();
+        if (tabId === 'sec-3-2') drawSim32();
+        if (tabId === 'sec-3-3') drawSim33();
+      });
+    }
+
+    function jumpTo(elId) {
+      const target = document.getElementById(elId);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function renderQuizSection(sectionKey, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const questions = QUIZ_BANK[sectionKey];
+      if (!questions) return;
+
+      let html = `
+        <div class="quiz-header-bar">
+          <div>
+            <strong>本區作答進度：</strong><span class="mono-val" id="sec-stat-${sectionKey}">0 / ${questions.length}</span>
+            <span style="margin-left: var(--space-md); color: var(--on-surface-variant); font-size:0.88rem;">單選題點擊選項後按「檢查答案」，多選題可勾選多項後送出</span>
+          </div>
+          <button type="button" class="btn-secondary" onclick="resetSectionQuiz('${sectionKey}', this)" style="min-height:38px; font-size:0.82rem;">清除本區作答</button>
+        </div>
+        <div class="quiz-list">
+      `;
+
+      questions.forEach((q, idx) => {
+        const userAns = appState.answers[q.id] || [];
+        const isChecked = !!appState.checked[q.id];
+        const isMulti = q.type === 'multi';
+        const isCorrect = isChecked && arraysMatch(userAns, q.ans);
+
+        html += `
+          <article class="quiz-card" id="card-${q.id}">
+            <div class="quiz-q-head">
+              <span class="index-num">第 ${idx + 1} 題</span>
+              <span class="quiz-badge ${isMulti ? 'multi' : ''}">${isMulti ? '多選題' : '單選題'}</span>
+            </div>
+            <p class="quiz-stem">${q.stem}</p>
+            <div class="options-grid">
+        `;
+
+        q.options.forEach((optText) => {
+          const letter = optText.charAt(0);
+          const isSel = userAns.includes(letter);
+          let cls = 'opt-btn';
+          if (isChecked) {
+            if (q.ans.includes(letter)) cls += ' correct';
+            else if (isSel && !q.ans.includes(letter)) cls += ' incorrect';
+          } else if (isSel) {
+            cls += ' selected';
+          }
+          html += `
+            <button type="button" class="${cls}" onclick="selectOption('${sectionKey}', '${q.id}', '${letter}')">
+              <span class="opt-letter">${letter}.</span>
+              <span>${optText.slice(3)}</span>
+            </button>
+          `;
+        });
+
+        html += `</div><div class="quiz-actions">`;
+        if (!isChecked) {
+          html += `<button type="button" class="btn-primary" onclick="checkQuestion('${sectionKey}', '${q.id}')">檢查答案</button>`;
+          html += `<span class="dossier-meta">${userAns.length ? '已選擇：' + userAns.join('、') : '請選擇答案'}</span>`;
+        } else {
+          html += `<button type="button" class="btn-secondary" onclick="reattemptQuestion('${sectionKey}', '${q.id}')">重新作答</button>`;
+          html += `<span class="dossier-meta">正確答案：${q.ans.join('')}</span>`;
+        }
+        html += `</div>`;
+
+        if (isChecked) {
+          html += `
+            <div class="feedback-banner ${isCorrect ? 'is-correct' : 'is-wrong'}">
+              <strong>${isCorrect ? '答對了！' : '再想一下！正確答案為 ' + q.ans.join('')}</strong>
+              <div><strong>詳解：</strong>${q.exp}</div>
+            </div>
+          `;
+        }
+        html += `</article>`;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+      updateAllStats();
+      renderMathSafely(container);
+    }
+
+    function arraysMatch(a, b) {
+      if (!a || !b || a.length !== b.length) return false;
+      const sa = [...a].sort().join('');
+      const sb = [...b].sort().join('');
+      return sa === sb;
+    }
+
+    function selectOption(sectionKey, qId, letter) {
+      if (appState.checked[qId]) return;
+      const q = QUIZ_BANK[sectionKey].find(x => x.id === qId);
+      if (!q) return;
+      if (q.type === 'single') {
+        appState.answers[qId] = [letter];
+      } else {
+        const cur = appState.answers[qId] || [];
+        if (cur.includes(letter)) {
+          appState.answers[qId] = cur.filter(c => c !== letter);
+        } else {
+          appState.answers[qId] = [...cur, letter].sort();
+        }
+      }
+      savePersistedState();
+      renderQuizSection(sectionKey, `quiz-container-${sectionKey}`);
+    }
+
+    function checkQuestion(sectionKey, qId) {
+      const userAns = appState.answers[qId] || [];
+      if (userAns.length === 0) {
+        const card = document.getElementById(`card-${qId}`);
+        if (card) {
+          const meta = card.querySelector('.dossier-meta');
+          if (meta) {
+            meta.textContent = '請先選擇一個選項再檢查！';
+            meta.style.color = 'var(--error)';
+          }
+        }
+        return;
+      }
+      appState.checked[qId] = true;
+      savePersistedState();
+      renderQuizSection(sectionKey, `quiz-container-${sectionKey}`);
+    }
+
+    function reattemptQuestion(sectionKey, qId) {
+      delete appState.checked[qId];
+      delete appState.answers[qId];
+      savePersistedState();
+      renderQuizSection(sectionKey, `quiz-container-${sectionKey}`);
+    }
+
+    function resetSectionQuiz(sectionKey, btn) {
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = '再次點擊確認清除';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = '清除本區作答';
+      QUIZ_BANK[sectionKey].forEach(q => {
+        delete appState.checked[q.id];
+        delete appState.answers[q.id];
+      });
+      savePersistedState();
+      renderQuizSection(sectionKey, `quiz-container-${sectionKey}`);
+    }
+
+    function handleResetProgress(btn) {
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = '再按一次確認清空全部紀錄';
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = '重設學習紀錄';
+      appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+      savePersistedState();
+      renderAllQuizzes();
+      switchChapter('sec-3-1');
+      selectMindNode('root');
+    }
+
+    function updateAllStats() {
+      let totalChecked = 0;
+      let totalCorrect = 0;
+      const mapIds = { '3-1': 'prog-3-1', '3-2': 'prog-3-2', '3-3': 'prog-3-3', 'summary': 'prog-summary' };
+
+      Object.keys(QUIZ_BANK).forEach(sec => {
+        let secChecked = 0;
+        let secCorrect = 0;
+        QUIZ_BANK[sec].forEach(q => {
+          if (appState.checked[q.id]) {
+            secChecked++;
+            totalChecked++;
+            if (arraysMatch(appState.answers[q.id], q.ans)) {
+              secCorrect++;
+              totalCorrect++;
+            }
+          }
+        });
+        const navBadge = document.getElementById(mapIds[sec]);
+        if (navBadge) navBadge.textContent = `${secCorrect}/${QUIZ_BANK[sec].length} 對`;
+        const secStat = document.getElementById(`sec-stat-${sec}`);
+        if (secStat) secStat.textContent = `${secChecked} / ${QUIZ_BANK[sec].length} 已完成（答對 ${secCorrect} 題）`;
+      });
+
+      const kpiAns = document.getElementById('kpi-answered');
+      const kpiCor = document.getElementById('kpi-correct');
+      const kpiRate = document.getElementById('kpi-rate');
+      if (kpiAns) kpiAns.textContent = `${totalChecked} / 40`;
+      if (kpiCor) kpiCor.textContent = `${totalCorrect}`;
+      if (kpiRate) kpiRate.textContent = totalChecked > 0 ? `${Math.round((totalCorrect / totalChecked) * 100)}%` : '—';
+    }
+
+    function renderAllQuizzes() {
+      renderQuizSection('3-1', 'quiz-container-3-1');
+      renderQuizSection('3-2', 'quiz-container-3-2');
+      renderQuizSection('3-3', 'quiz-container-3-3');
+      renderQuizSection('summary', 'quiz-container-summary');
+    }
+
+    // ==================== MIND MAP INTERACTION ====================
+    function handleMindKey(e, nodeId) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectMindNode(nodeId);
+      }
+    }
+
+    function setText(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+
+    function setVal(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    }
+
+    function getNumVal(id, fallback) {
+      const el = document.getElementById(id);
+      return el ? parseFloat(el.value) : fallback;
+    }
+
+    function selectMindNode(nodeId) {
+      appState.selectedNode = nodeId;
+      document.querySelectorAll('.mm-node').forEach(n => {
+        n.classList.toggle('active', n.dataset.node === nodeId);
+      });
+      const data = MINDMAP_INFO[nodeId] || MINDMAP_INFO.root;
+      const inspector = document.getElementById('mindmap-inspector');
+      if (!inspector) return;
+      inspector.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="dossier-pill">${data.badge}</span>
+          <span class="dossier-meta">互動節點解析</span>
+        </div>
+        <h3 style="margin: var(--space-xs) 0 0 0; font-family: var(--font-headline); font-size: var(--subhead-size);">${data.title}</h3>
+        <p style="margin:0;">${data.body}</p>
+        <div class="formula-box">
+          <span class="dossier-meta">關鍵關係式</span>
+          <div class="formula-display">$$${data.formula}$$</div>
+        </div>
+        <div style="margin-top: var(--space-xs);">
+          <button type="button" class="btn-primary" onclick="switchChapter('${data.actionTab}')">${data.actionLabel}</button>
+        </div>
+      `;
+      renderMathSafely(inspector);
+      savePersistedState();
+    }
+
+    // ==================== SIMULATOR 3-1: KINEMATICS ====================
+    const sim31 = { x0: 0, v0: 2, a: 2, t: 0, playing: false, lastTs: 0, rafId: null };
+
+    function setSim31Preset(kind) {
+      document.querySelectorAll('[id^="s31-pre-"]').forEach(b => b.classList.remove('active-preset'));
+      const btn = document.getElementById(`s31-pre-${kind}`);
+      if (btn) btn.classList.add('active-preset');
+
+      if (kind === 'accel') { sim31.x0 = 0; sim31.v0 = 0; sim31.a = 2; }
+      else if (kind === 'brake') { sim31.x0 = -10; sim31.v0 = 12; sim31.a = -3; }
+      else if (kind === 'const') { sim31.x0 = -15; sim31.v0 = 5; sim31.a = 0; }
+
+      setVal('s31-x0', sim31.x0);
+      setVal('s31-v0', sim31.v0);
+      setVal('s31-a', sim31.a);
+      sim31.t = 0;
+      setVal('s31-t', 0);
+      updateSim31Labels();
+      drawSim31();
+    }
+
+    function updateSim31Params() {
+      document.querySelectorAll('[id^="s31-pre-"]').forEach(b => b.classList.remove('active-preset'));
+      sim31.x0 = getNumVal('s31-x0', 0);
+      sim31.v0 = getNumVal('s31-v0', 2);
+      sim31.a = getNumVal('s31-a', 2);
+      updateSim31Labels();
+      drawSim31();
+    }
+
+    function scrubSim31Time(val) {
+      sim31.t = parseFloat(val);
+      updateSim31Labels();
+      drawSim31();
+    }
+
+    function updateSim31Labels() {
+      setText('s31-x0-val', `${sim31.x0} m`);
+      setText('s31-v0-val', `${sim31.v0} m/s`);
+      setText('s31-a-val', `${sim31.a.toFixed(1)} m/s²`);
+      setText('s31-t-val', `${sim31.t.toFixed(1)} s`);
+    }
+
+    function toggleSim31Play() {
+      sim31.playing = !sim31.playing;
+      const btn = document.getElementById('s31-play-btn');
+      if (btn) btn.textContent = sim31.playing ? '暫停動畫' : '播放動畫';
+      if (sim31.playing) {
+        if (sim31.t >= 10) sim31.t = 0;
+        sim31.lastTs = performance.now();
+        sim31Loop(sim31.lastTs);
+      } else {
+        cancelAnimationFrame(sim31.rafId);
+      }
+    }
+
+    function resetSim31Time() {
+      sim31.playing = false;
+      cancelAnimationFrame(sim31.rafId);
+      const btn = document.getElementById('s31-play-btn');
+      if (btn) btn.textContent = '播放動畫';
+      sim31.t = 0;
+      document.getElementById('s31-t').value = 0;
+      updateSim31Labels();
+      drawSim31();
+    }
+
+    function sim31Loop(now) {
+      if (!sim31.playing) return;
+      const dt = Math.min((now - sim31.lastTs) / 1000, 0.05);
+      sim31.lastTs = now;
+      sim31.t += dt;
+      if (sim31.t >= 10) {
+        sim31.t = 10;
+        sim31.playing = false;
+        const btn = document.getElementById('s31-play-btn');
+        if (btn) btn.textContent = '播放動畫';
+      }
+      const slider = document.getElementById('s31-t');
+      if (slider) slider.value = sim31.t.toFixed(1);
+      updateSim31Labels();
+      drawSim31();
+      if (sim31.playing) sim31.rafId = requestAnimationFrame(sim31Loop);
+    }
+
+    function calcSim31At(tau) {
+      const x = sim31.x0 + sim31.v0 * tau + 0.5 * sim31.a * tau * tau;
+      const v = sim31.v0 + sim31.a * tau;
+      // Compute path length accurately considering turn-around time
+      let pathLen = Math.abs(x - sim31.x0);
+      if (sim31.a !== 0) {
+        const tTurn = -sim31.v0 / sim31.a;
+        if (tTurn > 0 && tTurn < tau) {
+          const xTurn = sim31.x0 + sim31.v0 * tTurn + 0.5 * sim31.a * tTurn * tTurn;
+          pathLen = Math.abs(xTurn - sim31.x0) + Math.abs(x - xTurn);
+        }
+      }
+      return { x, v, pathLen, dx: x - sim31.x0 };
+    }
+
+    function drawSim31() {
+      const canvas = document.getElementById('canvas-3-1');
+      if (!canvas || !canvas.parentElement) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      if (rect.width < 10) return;
+      const dpr = window.devicePixelRatio || 1;
+      const W = rect.width;
+      const H = Math.max(410, rect.height);
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, W, H);
+
+      const cur = calcSim31At(sim31.t);
+      // Update readouts
+      setText('r31-t', `${sim31.t.toFixed(1)} s`);
+      setText('r31-x', `${cur.x.toFixed(1)} m`);
+      setText('r31-dx', `${cur.dx >= 0 ? '+' : ''}${cur.dx.toFixed(1)} m`);
+      setText('r31-l', `${cur.pathLen.toFixed(1)} m`);
+      setText('r31-v', `${cur.v.toFixed(1)} m/s`);
+      let st = '等速前進';
+      if (Math.abs(cur.v) < 0.05 && sim31.a === 0) st = '靜止';
+      else if (Math.abs(cur.v) < 0.1 && sim31.a !== 0) st = '折返瞬間 (v=0)';
+      else if (sim31.a === 0) st = cur.v > 0 ? '等速向正' : '等速向負';
+      else if (cur.v * sim31.a > 0) st = '同向加速';
+      else st = '反向減速';
+      setText('r31-state', st);
+
+      // Top Track Area (0 to 120px)
+      const trackY = 74;
+      const padX = 36;
+      const trackW = W - padX * 2;
+      // Determine x range over 0..10s
+      let minX = -30, maxX = 80;
+      for (let tt = 0; tt <= 10; tt += 0.5) {
+        const px = sim31.x0 + sim31.v0 * tt + 0.5 * sim31.a * tt * tt;
+        if (px < minX) minX = px - 10;
+        if (px > maxX) maxX = px + 10;
+      }
+      const xToPx = (val) => padX + ((val - minX) / (maxX - minX)) * trackW;
+
+      ctx.fillStyle = '#56585c';
+      ctx.font = '600 12px "Geist Mono", "Noto Sans TC", sans-serif';
+      ctx.fillText('一維直線運動軌道示意（實時位置與向量）', padX, 24);
+
+      // Draw track line
+      ctx.strokeStyle = '#17181a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(padX, trackY);
+      ctx.lineTo(W - padX, trackY);
+      ctx.stroke();
+
+      // Origin tick
+      const zeroPx = xToPx(0);
+      ctx.strokeStyle = '#1f4e5f';
+      ctx.beginPath();
+      ctx.moveTo(zeroPx, trackY - 10);
+      ctx.lineTo(zeroPx, trackY + 10);
+      ctx.stroke();
+      ctx.fillStyle = '#1f4e5f';
+      ctx.fillText('O (0m)', zeroPx - 16, trackY + 24);
+
+      // Car box
+      const carPx = xToPx(cur.x);
+      ctx.fillStyle = '#1f4e5f';
+      ctx.fillRect(carPx - 18, trackY - 26, 36, 20);
+      ctx.fillStyle = '#17181a';
+      ctx.beginPath();
+      ctx.arc(carPx - 10, trackY - 5, 4, 0, Math.PI * 2);
+      ctx.arc(carPx + 10, trackY - 5, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Velocity arrow
+      if (Math.abs(cur.v) > 0.2) {
+        const vLen = Math.max(-65, Math.min(65, cur.v * 2.5));
+        drawArrow(ctx, carPx, trackY - 34, carPx + vLen, trackY - 34, '#d99000', 2.5);
+        ctx.fillStyle = '#785008';
+        ctx.fillText(`v=${cur.v.toFixed(1)}`, carPx + (vLen > 0 ? 4 : -48), trackY - 40);
+      }
+      // Accel arrow
+      if (Math.abs(sim31.a) > 0.05) {
+        const aLen = Math.max(-50, Math.min(50, sim31.a * 8));
+        drawArrow(ctx, carPx, trackY + 34, carPx + aLen, trackY + 34, '#b84a39', 2);
+        ctx.fillStyle = '#b84a39';
+        ctx.fillText(`a=${sim31.a.toFixed(1)}`, carPx + (aLen > 0 ? 4 : -46), trackY + 48);
+      }
+
+      // Bottom 3 Graphs (x-t, v-t, a-t)
+      const gTop = 140;
+      const gH = H - gTop - 36;
+      const cols = W > 560 ? 3 : 1;
+      const gap = 22;
+      const gW = (W - padX * 2 - gap * (cols - 1)) / cols;
+
+      if (cols === 3) {
+        drawPlot31(ctx, padX, gTop, gW, gH, 'x-t 圖 (位置 m)', 'x', minX, maxX, '#1f4e5f', false);
+        drawPlot31(ctx, padX + gW + gap, gTop, gW, gH, 'v-t 圖 (面積=位移)', 'v', -25, 45, '#d99000', true);
+        drawPlot31(ctx, padX + (gW + gap) * 2, gTop, gW, gH, 'a-t 圖 (斜率常數)', 'a', -6, 6, '#b84a39', false);
+      } else {
+        drawPlot31(ctx, padX, gTop, gW, gH * 0.46, 'x-t 圖 (位置 m)', 'x', minX, maxX, '#1f4e5f', false);
+        drawPlot31(ctx, padX, gTop + gH * 0.54, gW, gH * 0.46, 'v-t 圖 (面積=位移)', 'v', -25, 45, '#d99000', true);
+      }
+    }
+
+    function drawPlot31(ctx, x0, y0, w, h, title, kind, minVal, maxVal, color, shadeArea) {
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#dedad0';
+      ctx.lineWidth = 1;
+      ctx.fillRect(x0, y0, w, h);
+      ctx.strokeRect(x0, y0, w, h);
+
+      ctx.fillStyle = '#17181a';
+      ctx.font = '600 11px "Geist Mono", "Noto Sans TC", sans-serif';
+      ctx.fillText(title, x0 + 8, y0 + 16);
+
+      const pLeft = x0 + 34, pRight = x0 + w - 12, pTop = y0 + 26, pBot = y0 + h - 22;
+      const pw = pRight - pLeft, ph = pBot - pTop;
+      const mapT = (tt) => pLeft + (tt / 10) * pw;
+      const mapY = (val) => pBot - ((Math.max(minVal, Math.min(maxVal, val)) - minVal) / (maxVal - minVal)) * ph;
+      const zeroY = mapY(0);
+
+      // Zero baseline
+      ctx.strokeStyle = '#c4bfb2';
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(pLeft, zeroY);
+      ctx.lineTo(pRight, zeroY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Shade area under v-t from 0 to sim31.t
+      if (shadeArea && sim31.t > 0) {
+        ctx.fillStyle = 'rgba(217, 144, 0, 0.22)';
+        ctx.beginPath();
+        ctx.moveTo(mapT(0), zeroY);
+        for (let tt = 0; tt <= sim31.t; tt += 0.1) {
+          const val = sim31.v0 + sim31.a * tt;
+          ctx.lineTo(mapT(tt), mapY(val));
+        }
+        ctx.lineTo(mapT(sim31.t), zeroY);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // Full curve (faint) + active curve up to t
+      ctx.strokeStyle = '#dedad0';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      for (let tt = 0; tt <= 10; tt += 0.2) {
+        const val = kind === 'x' ? (sim31.x0 + sim31.v0 * tt + 0.5 * sim31.a * tt * tt) : (kind === 'v' ? (sim31.v0 + sim31.a * tt) : sim31.a);
+        if (tt === 0) ctx.moveTo(mapT(tt), mapY(val));
+        else ctx.lineTo(mapT(tt), mapY(val));
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for (let tt = 0; tt <= sim31.t; tt += 0.1) {
+        const val = kind === 'x' ? (sim31.x0 + sim31.v0 * tt + 0.5 * sim31.a * tt * tt) : (kind === 'v' ? (sim31.v0 + sim31.a * tt) : sim31.a);
+        if (tt === 0) ctx.moveTo(mapT(tt), mapY(val));
+        else ctx.lineTo(mapT(tt), mapY(val));
+      }
+      ctx.stroke();
+
+      // Current point dot
+      const curVal = kind === 'x' ? (sim31.x0 + sim31.v0 * sim31.t + 0.5 * sim31.a * sim31.t * sim31.t) : (kind === 'v' ? (sim31.v0 + sim31.a * sim31.t) : sim31.a);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(mapT(sim31.t), mapY(curVal), 4.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Axis ticks
+      ctx.fillStyle = '#56585c';
+      ctx.font = '10px "Geist Mono", monospace';
+      ctx.fillText('0', pLeft - 14, zeroY + 3);
+      ctx.fillText('t(s)', pRight - 18, pBot + 14);
+    }
+
+    function drawArrow(ctx, x1, y1, x2, y2, color, lw) {
+      const head = 7;
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = lw;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - head * Math.cos(angle - Math.PI / 6), y2 - head * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(x2 - head * Math.cos(angle + Math.PI / 6), y2 - head * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // ==================== SIMULATOR 3-2: NEWTON 2 & FRICTION ====================
+    const sim32 = { m: 2, f: 6, mus: 0.4, muk: 0.25, v: 0, x: 0, playing: true, lastTs: 0, rafId: null };
+
+    function updateSim32Params() {
+      sim32.m = getNumVal('s32-m', 2);
+      sim32.f = getNumVal('s32-f', 6);
+      sim32.mus = getNumVal('s32-mus', 0.4);
+      sim32.muk = getNumVal('s32-muk', 0.25);
+      if (sim32.muk > sim32.mus) {
+        sim32.muk = sim32.mus;
+        setVal('s32-muk', sim32.muk);
+      }
+      setText('s32-m-val', `${sim32.m.toFixed(1)} kg`);
+      setText('s32-f-val', `${sim32.f.toFixed(1)} N`);
+      setText('s32-mus-val', `${sim32.mus.toFixed(2)}`);
+      setText('s32-muk-val', `${sim32.muk.toFixed(2)}`);
+      drawSim32();
+    }
+
+    function toggleSim32Play() {
+      sim32.playing = !sim32.playing;
+      const btn = document.getElementById('s32-play-btn');
+      if (btn) btn.textContent = sim32.playing ? '暫停模擬' : '繼續模擬';
+      if (sim32.playing) {
+        sim32.lastTs = performance.now();
+        sim32Loop(sim32.lastTs);
+      } else {
+        cancelAnimationFrame(sim32.rafId);
+      }
+    }
+
+    function resetSim32Block() {
+      sim32.v = 0;
+      sim32.x = 0;
+      drawSim32();
+    }
+
+    function computeSim32Physics() {
+      const g = 10;
+      const N = sim32.m * g;
+      const fsMax = sim32.mus * N;
+      const fk = sim32.muk * N;
+      let fric = 0, fNet = 0, a = 0, status = '';
+
+      if (sim32.v <= 0.02) {
+        if (sim32.f <= fsMax) {
+          fric = sim32.f;
+          fNet = 0;
+          a = 0;
+          sim32.v = 0;
+          status = '靜止 (靜摩擦力)';
+        } else {
+          fric = fk;
+          fNet = sim32.f - fk;
+          a = fNet / sim32.m;
+          status = '突破！加速滑動 (動摩擦)';
+        }
+      } else {
+        fric = fk;
+        fNet = sim32.f - fk;
+        a = fNet / sim32.m;
+        status = a >= 0 ? '加速滑動 (動摩擦)' : '減速滑動 (動摩擦)';
+      }
+      return { N, fsMax, fk, fric, fNet, a, status };
+    }
+
+    function sim32Loop(now) {
+      if (!sim32.playing) return;
+      const dt = Math.min((now - sim32.lastTs) / 1000, 0.04);
+      sim32.lastTs = now;
+      if (appState.activeTab === 'sec-3-2') {
+        const phys = computeSim32Physics();
+        sim32.v = Math.max(0, sim32.v + phys.a * dt);
+        sim32.x = (sim32.x + sim32.v * dt * 16) % 1000;
+        drawSim32();
+      }
+      sim32.rafId = requestAnimationFrame(sim32Loop);
+    }
+
+    function drawSim32() {
+      const canvas = document.getElementById('canvas-3-2');
+      if (!canvas || !canvas.parentElement) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      if (rect.width < 10) return;
+      const dpr = window.devicePixelRatio || 1;
+      const W = rect.width;
+      const H = Math.max(410, rect.height);
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, W, H);
+
+      const phys = computeSim32Physics();
+      setText('r32-n', `${phys.N.toFixed(1)} N`);
+      setText('r32-fsmax', `${phys.fsMax.toFixed(1)} N`);
+      setText('r32-f', `${phys.fric.toFixed(1)} N`);
+      setText('r32-fnet', `${phys.fNet.toFixed(1)} N`);
+      setText('r32-a', `${phys.a.toFixed(2)} m/s²`);
+      setText('r32-status', phys.status);
+
+      // Left: Free Body Diagram & Block on Surface; Right: Friction vs Applied Force Curve
+      const splitX = W > 540 ? W * 0.52 : W;
+      const floorY = W > 540 ? H * 0.65 : H * 0.44;
+
+      // Ground texture scrolling by sim32.x
+      ctx.fillStyle = '#56585c';
+      ctx.font = '600 12px "Geist Mono", "Noto Sans TC", sans-serif';
+      ctx.fillText('受力分析圖 (FBD) 與水平滑動', 20, 24);
+
+      ctx.strokeStyle = '#17181a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(20, floorY);
+      ctx.lineTo(splitX - 20, floorY);
+      ctx.stroke();
+
+      // Ground ticks moving opposite to block motion
+      ctx.strokeStyle = '#c4bfb2';
+      ctx.lineWidth = 1.5;
+      for (let gx = 20 - (sim32.x % 24); gx < splitX - 20; gx += 24) {
+        if (gx < 20) continue;
+        ctx.beginPath();
+        ctx.moveTo(gx, floorY);
+        ctx.lineTo(gx - 8, floorY + 10);
+        ctx.stroke();
+      }
+
+      // Block
+      const bx = splitX * 0.5;
+      const bw = 64 + sim32.m * 3.5;
+      const bh = 52 + sim32.m * 2.5;
+      const by = floorY - bh;
+      ctx.fillStyle = '#1f4e5f';
+      ctx.fillRect(bx - bw / 2, by, bw, bh);
+      ctx.strokeStyle = '#17181a';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(bx - bw / 2, by, bw, bh);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '700 13px "Geist Mono", sans-serif';
+      ctx.fillText(`${sim32.m.toFixed(1)}kg`, bx - 22, by + bh / 2 + 5);
+
+      // Force Vectors
+      const cy = by + bh / 2;
+      // Gravity W
+      const wLen = Math.min(75, 25 + phys.N * 0.55);
+      drawArrow(ctx, bx, cy, bx, cy + wLen, '#56585c', 2.5);
+      ctx.fillStyle = '#56585c';
+      ctx.font = '600 11px "Geist Mono", sans-serif';
+      ctx.fillText(`W=${phys.N.toFixed(0)}N`, bx + 6, cy + wLen - 4);
+
+      // Normal N
+      drawArrow(ctx, bx, cy, bx, cy - wLen, '#2b6e52', 2.5);
+      ctx.fillStyle = '#2b6e52';
+      ctx.fillText(`N=${phys.N.toFixed(0)}N`, bx + 6, cy - wLen + 10);
+
+      // Applied Force F (Right)
+      if (sim32.f > 0) {
+        const fLen = Math.min(115, 16 + sim32.f * 2.3);
+        drawArrow(ctx, bx + bw / 2, cy, bx + bw / 2 + fLen, cy, '#d99000', 3);
+        ctx.fillStyle = '#785008';
+        ctx.fillText(`F=${sim32.f.toFixed(1)}N`, bx + bw / 2 + 8, cy - 10);
+      }
+
+      // Friction f (Left)
+      if (phys.fric > 0) {
+        const frLen = Math.min(115, 16 + phys.fric * 2.3);
+        drawArrow(ctx, bx - bw / 2, floorY - 10, bx - bw / 2 - frLen, floorY - 10, '#b84a39', 3);
+        ctx.fillStyle = '#b84a39';
+        ctx.fillText(`f=${phys.fric.toFixed(1)}N`, bx - bw / 2 - frLen, floorY - 18);
+      }
+
+      // Speed badge
+      ctx.fillStyle = '#17181a';
+      ctx.fillText(`瞬時速度 v = ${sim32.v.toFixed(1)} m/s`, 20, floorY + 34);
+
+      // Friction vs Applied Force Chart
+      const cx0 = W > 540 ? splitX + 12 : 20;
+      const cy0 = W > 540 ? 20 : floorY + 52;
+      const cw = W - cx0 - 20;
+      const ch = H - cy0 - 20;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#dedad0';
+      ctx.lineWidth = 1;
+      ctx.fillRect(cx0, cy0, cw, ch);
+      ctx.strokeRect(cx0, cy0, cw, ch);
+
+      ctx.fillStyle = '#17181a';
+      ctx.font = '600 12px "Geist Mono", "Noto Sans TC", sans-serif';
+      ctx.fillText('摩擦力 f 與外力 F 關係圖', cx0 + 12, cy0 + 22);
+
+      const pL = cx0 + 42, pR = cx0 + cw - 18, pT = cy0 + 40, pB = cy0 + ch - 34;
+      const maxF = 40;
+      const maxY = Math.max(40, phys.fsMax * 1.25);
+      const mapFx = (val) => pL + (val / maxF) * (pR - pL);
+      const mapFy = (val) => pB - (val / maxY) * (pB - pT);
+
+      // Axes
+      ctx.strokeStyle = '#17181a';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(pL, pT);
+      ctx.lineTo(pL, pB);
+      ctx.lineTo(pR, pB);
+      ctx.stroke();
+
+      // Curve: (0,0) -> (fsMax, fsMax) -> drop to (fsMax, fk) -> (40, fk)
+      ctx.strokeStyle = '#1f4e5f';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(mapFx(0), mapFy(0));
+      ctx.lineTo(mapFx(Math.min(maxF, phys.fsMax)), mapFy(Math.min(maxF, phys.fsMax)));
+      if (phys.fsMax < maxF) {
+        ctx.lineTo(mapFx(phys.fsMax), mapFy(phys.fk));
+        ctx.lineTo(mapFx(maxF), mapFy(phys.fk));
+      }
+      ctx.stroke();
+
+      // Working point dot
+      ctx.fillStyle = '#b84a39';
+      ctx.beginPath();
+      ctx.arc(mapFx(sim32.f), mapFy(phys.fric), 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#56585c';
+      ctx.font = '10px "Geist Mono", sans-serif';
+      ctx.fillText('外力 F (N)', pR - 60, pB + 20);
+      ctx.fillText('f_s,max', pL + 4, mapFy(phys.fsMax) - 6);
+    }
+
+    // ==================== SIMULATOR 3-3: KEPLER ORBITS ====================
+    const sim33 = {
+      e: 0.60, a: 2.5, theta: 0.2, playing: true, lastTs: 0, rafId: null,
+      sweepMode: false, sweepSamples: [], sweepTimer: 0
+    };
+
+    function setSim33Preset(kind) {
+      document.querySelectorAll('[id^="s33-pre-"]').forEach(b => b.classList.remove('active-preset'));
+      const btn = document.getElementById(`s33-pre-${kind}`);
+      if (btn) btn.classList.add('active-preset');
+
+      if (kind === 'earth') { sim33.e = 0.05; sim33.a = 1.0; }
+      else if (kind === 'comet') { sim33.e = 0.60; sim33.a = 2.5; }
+      else if (kind === 'mars') { sim33.e = 0.10; sim33.a = 1.6; }
+
+      setVal('s33-e', sim33.e);
+      setVal('s33-a', sim33.a);
+      sim33.sweepSamples = [];
+      updateSim33Params();
+    }
+
+    function updateSim33Params() {
+      sim33.e = getNumVal('s33-e', 0.6);
+      sim33.a = getNumVal('s33-a', 2.5);
+      setText('s33-e-val', sim33.e.toFixed(2));
+      setText('s33-a-val', `${sim33.a.toFixed(1)} AU`);
+      sim33.sweepSamples = [];
+      drawSim33();
+    }
+
+    function toggleSim33Play() {
+      sim33.playing = !sim33.playing;
+      const btn = document.getElementById('s33-play-btn');
+      if (btn) btn.textContent = sim33.playing ? '暫停公轉' : '繼續公轉';
+      if (sim33.playing) {
+        sim33.lastTs = performance.now();
+        sim33Loop(sim33.lastTs);
+      } else {
+        cancelAnimationFrame(sim33.rafId);
+      }
+    }
+
+    function triggerSim33Sweep() {
+      // Pre-compute two exact equal-time sectors around perihelion (theta ~ 0) and aphelion (theta ~ PI)
+      // By Kepler 2nd Law, equal time dt means r^2 * dtheta = const = h * dt
+      const dtTargetArea = 0.42 * sim33.a * sim33.a * Math.sqrt(1 - sim33.e * sim33.e);
+      const buildSector = (startTheta) => {
+        const pts = [startTheta];
+        let area = 0;
+        let th = startTheta;
+        const dth = 0.015;
+        while (area < dtTargetArea && pts.length < 250) {
+          const r = sim33.a * (1 - sim33.e * sim33.e) / (1 + sim33.e * Math.cos(th));
+          area += 0.5 * r * r * dth;
+          th += dth;
+          pts.push(th);
+        }
+        return pts;
+      };
+      sim33.sweepSamples = [
+        { color: 'rgba(124, 196, 232, 0.35)', stroke: '#7cc4e8', label: '近日側 ΔA₁', pts: buildSector(-0.35) },
+        { color: 'rgba(242, 183, 5, 0.35)', stroke: '#f2b705', label: '遠日側 ΔA₂', pts: buildSector(Math.PI - 0.12) }
+      ];
+      drawSim33();
+    }
+
+    function sim33Loop(now) {
+      if (!sim33.playing) return;
+      const dt = Math.min((now - sim33.lastTs) / 1000, 0.04);
+      sim33.lastTs = now;
+      if (appState.activeTab === 'sec-3-3') {
+        // True anomaly step proportional to 1 / r^2 (Conservation of angular momentum)
+        const p = sim33.a * (1 - sim33.e * sim33.e);
+        const r = p / (1 + sim33.e * Math.cos(sim33.theta));
+        const T = Math.pow(sim33.a, 1.5);
+        const dTheta = (dt * 4.5 / Math.max(0.6, T)) * (sim33.a * sim33.a) / (r * r);
+        sim33.theta = (sim33.theta + dTheta) % (Math.PI * 2);
+        drawSim33();
+      }
+      sim33.rafId = requestAnimationFrame(sim33Loop);
+    }
+
+    function drawSim33() {
+      const canvas = document.getElementById('canvas-3-3');
+      if (!canvas || !canvas.parentElement) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      if (rect.width < 10) return;
+      const dpr = window.devicePixelRatio || 1;
+      const W = rect.width;
+      const H = Math.max(410, rect.height);
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, W, H);
+
+      const p = sim33.a * (1 - sim33.e * sim33.e);
+      const rMin = sim33.a * (1 - sim33.e);
+      const rMax = sim33.a * (1 + sim33.e);
+      const T = Math.pow(sim33.a, 1.5);
+      const rCur = p / (1 + sim33.e * Math.cos(sim33.theta));
+      // Vis-viva relative speed v = sqrt(2/r - 1/a)
+      const vRel = Math.sqrt(Math.max(0.01, 2 / rCur - 1 / sim33.a));
+
+      setText('r33-rmin', `${rMin.toFixed(2)} AU`);
+      setText('r33-rmax', `${rMax.toFixed(2)} AU`);
+      setText('r33-t', `${T.toFixed(2)} 年`);
+      setText('r33-k', `${(Math.pow(sim33.a, 3) / (T * T)).toFixed(3)}`);
+      setText('r33-r', `${rCur.toFixed(2)} AU`);
+      setText('r33-v', `${vRel.toFixed(2)} v₀`);
+
+      // Scale ellipse cleanly inside canvas
+      const b = sim33.a * Math.sqrt(1 - sim33.e * sim33.e);
+      const c = sim33.a * sim33.e;
+      const scale = Math.min((W - 90) / (2 * sim33.a), (H - 90) / (2 * b));
+      const cx = W / 2;
+      const cy = H / 2;
+      const sunX = cx + c * scale; // Sun at right focus F1 -> theta=0 is perihelion on the right
+      const sunY = cy;
+
+      // Subtle background orbital grid
+      ctx.strokeStyle = '#293645';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath();
+      ctx.moveTo(20, cy);
+      ctx.lineTo(W - 20, cy);
+      ctx.moveTo(cx, 20);
+      ctx.lineTo(cx, H - 20);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Draw Equal-Area Sectors if triggered
+      sim33.sweepSamples.forEach(sec => {
+        ctx.fillStyle = sec.color;
+        ctx.strokeStyle = sec.stroke;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(sunX, sunY);
+        sec.pts.forEach(th => {
+          const rr = p / (1 + sim33.e * Math.cos(th));
+          ctx.lineTo(sunX + rr * Math.cos(th) * scale, sunY - rr * Math.sin(th) * scale);
+        });
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        const midTh = sec.pts[Math.floor(sec.pts.length / 2)];
+        const midR = p / (1 + sim33.e * Math.cos(midTh));
+        ctx.fillStyle = sec.stroke;
+        ctx.font = '600 11px "Geist Mono", "Noto Sans TC", sans-serif';
+        ctx.fillText(sec.label, sunX + midR * 0.65 * Math.cos(midTh) * scale - 24, sunY - midR * 0.65 * Math.sin(midTh) * scale);
+      });
+
+      // Draw Orbit Ellipse
+      ctx.strokeStyle = '#9ea4ad';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, sim33.a * scale, b * scale, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Center O & Focus F2
+      ctx.fillStyle = '#9ea4ad';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = '11px "Geist Mono", sans-serif';
+      ctx.fillText('O', cx - 4, cy + 16);
+
+      if (sim33.e > 0.08) {
+        const f2X = cx - c * scale;
+        ctx.beginPath();
+        ctx.arc(f2X, cy, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillText('F₂', f2X - 6, cy + 16);
+      }
+
+      // Sun at F1
+      ctx.fillStyle = '#f2b705';
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, 12, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#faf9f5';
+      ctx.font = '600 11px "Geist Mono", "Noto Sans TC", sans-serif';
+      ctx.fillText('太陽 (F₁)', sunX - 24, sunY + 26);
+
+      // Perihelion & Aphelion labels
+      ctx.fillStyle = '#e6e2d6';
+      ctx.fillText('近日點 (最快)', cx + sim33.a * scale - 36, cy - 12);
+      ctx.fillText('遠日點 (最慢)', cx - sim33.a * scale - 36, cy - 12);
+
+      // Planet & Radius Vector
+      const px = sunX + rCur * Math.cos(sim33.theta) * scale;
+      const py = sunY - rCur * Math.sin(sim33.theta) * scale;
+      ctx.strokeStyle = '#7cc4e8';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(sunX, sunY);
+      ctx.lineTo(px, py);
+      ctx.stroke();
+
+      ctx.fillStyle = '#7cc4e8';
+      ctx.beginPath();
+      ctx.arc(px, py, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    // ==================== MATH RENDER & INIT ====================
+    function renderMathSafely(rootEl) {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(rootEl || document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    async function initApp() {
+      await loadPersistedState();
+      renderAllQuizzes();
+      selectMindNode(appState.selectedNode || 'root');
+      switchChapter(appState.activeTab || 'sec-3-1');
+
+      updateSim31Labels();
+      updateSim32Params();
+      updateSim33Params();
+
+      // Start background simulation loops for 3-2 & 3-3
+      sim32.lastTs = performance.now();
+      sim32.rafId = requestAnimationFrame(sim32Loop);
+      sim33.lastTs = performance.now();
+      sim33.rafId = requestAnimationFrame(sim33Loop);
+
+      // Resize observer to keep canvases crisp
+      window.addEventListener('resize', () => {
+        if (appState.activeTab === 'sec-3-1') drawSim31();
+        if (appState.activeTab === 'sec-3-2') drawSim32();
+        if (appState.activeTab === 'sec-3-3') drawSim33();
+      });
+
+      // Wait briefly for deferred KaTeX / Lucide scripts if needed
+      setTimeout(() => renderMathSafely(document.body), 150);
+      window.addEventListener('load', () => {
+        renderMathSafely(document.body);
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+          window.lucide.createIcons();
+        }
+      });
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
